@@ -113,6 +113,15 @@ const translations: Translations = {
   "contact.send": { ar: "إرسال", en: "Send" },
   "contact.whatsapp": { ar: "أو تواصل عبر واتساب", en: "Or contact via WhatsApp" },
 
+  // Portfolio
+  "portfolio.title": { ar: "أعمالنا", en: "Portfolio" },
+  "portfolio.subtitle": {
+    ar: "مشاريع حقيقية بنيناها لعملائنا",
+    en: "Real projects we've built for our clients",
+  },
+  "portfolio.cta": { ar: "أريد مشروع مشابه", en: "I want something similar" },
+  "nav.portfolio": { ar: "أعمالنا", en: "Portfolio" },
+
   // Footer
   "footer.services": { ar: "الخدمات", en: "Services" },
   "footer.company": { ar: "الشركة", en: "Company" },

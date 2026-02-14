@@ -3,7 +3,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Home, Users, Layers, Package, Lightbulb,
-  HelpCircle, MessageSquare, Menu, X, Globe
+  HelpCircle, MessageSquare, Menu, X, Globe, Briefcase
 } from "lucide-react";
 
 const navItems = [
@@ -12,6 +12,7 @@ const navItems = [
   { key: "nav.mirror", icon: Layers, href: "#mirror" },
   { key: "nav.solutions", icon: Lightbulb, href: "#solutions" },
   { key: "nav.packages", icon: Package, href: "#packages" },
+  { key: "nav.portfolio", icon: Briefcase, href: "#portfolio" },
   { key: "nav.faq", icon: HelpCircle, href: "#faq" },
   { key: "nav.contact", icon: MessageSquare, href: "#contact" },
 ];
