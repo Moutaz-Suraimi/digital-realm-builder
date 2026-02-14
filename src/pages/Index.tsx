@@ -6,6 +6,7 @@ import DigitalMirror from "@/components/DigitalMirror";
 import SolutionsSection from "@/components/SolutionsSection";
 import PackagesSection from "@/components/PackagesSection";
 import PortfolioSection from "@/components/PortfolioSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import FooterSection from "@/components/FooterSection";
@@ -40,6 +41,7 @@ const Index = () => {
         <SolutionsSection />
         <PackagesSection />
         <PortfolioSection />
+        <TestimonialsSection />
         <FAQSection />
         <ContactSection />
         <FooterSection />

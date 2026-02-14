@@ -33,6 +33,10 @@ const introText: Record<string, { line1: string; line2: string }> = {
     line1: "Welcome…",
     line2: "You have entered the digital world of Surimi Media",
   },
+  zh: {
+    line1: "欢迎…",
+    line2: "你已进入苏里米数字世界",
+  },
 };
 
 const CinematicIntro = ({ onComplete }: { onComplete: () => void }) => {

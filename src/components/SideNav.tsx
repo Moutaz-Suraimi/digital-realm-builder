@@ -3,7 +3,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Home, Users, Layers, Package, Lightbulb,
-  HelpCircle, MessageSquare, Menu, X, Globe, Briefcase
+  HelpCircle, MessageSquare, Menu, X, Globe, Briefcase, Star
 } from "lucide-react";
 
 const navItems = [
@@ -13,15 +13,17 @@ const navItems = [
   { key: "nav.solutions", icon: Lightbulb, href: "#solutions" },
   { key: "nav.packages", icon: Package, href: "#packages" },
   { key: "nav.portfolio", icon: Briefcase, href: "#portfolio" },
+  { key: "nav.testimonials", icon: Star, href: "#testimonials" },
   { key: "nav.faq", icon: HelpCircle, href: "#faq" },
   { key: "nav.contact", icon: MessageSquare, href: "#contact" },
 ];
 
 const SideNav = () => {
-  const { t, lang, setLang } = useLanguage();
+  const { t, lang, setLang, langLabels, langOrder } = useLanguage();
   const [hovered, setHovered] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("#home");
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   const handleClick = (href: string) => {
     setActive(href);
@@ -30,6 +32,10 @@ const SideNav = () => {
   };
 
   const isRtl = lang === "ar";
+
+  const cycleLang = () => {
+    setLangMenuOpen(!langMenuOpen);
+  };
 
   return (
     <>
@@ -43,14 +49,38 @@ const SideNav = () => {
       </button>
 
       {/* Language switcher - top corner */}
-      <button
-        onClick={() => setLang(lang === "ar" ? "en" : "ar")}
-        className="fixed top-4 z-50 p-3 glass rounded-lg neon-border flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
-        style={{ [isRtl ? "left" : "right"]: "1rem" }}
-      >
-        <Globe className="w-4 h-4" />
-        {t("lang.switch")}
-      </button>
+      <div className="fixed top-4 z-50" style={{ [isRtl ? "left" : "right"]: "1rem" }}>
+        <button
+          onClick={cycleLang}
+          className="p-3 glass rounded-lg neon-border flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+        >
+          <Globe className="w-4 h-4" />
+          {langLabels[lang]}
+        </button>
+        <AnimatePresence>
+          {langMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.95 }}
+              transition={{ duration: 0.15 }}
+              className="absolute top-14 end-0 glass-strong rounded-xl neon-border overflow-hidden min-w-[120px]"
+            >
+              {langOrder.map((l) => (
+                <button
+                  key={l}
+                  onClick={() => { setLang(l); setLangMenuOpen(false); }}
+                  className={`w-full px-4 py-2.5 text-sm text-start transition-colors ${
+                    lang === l ? "text-primary bg-primary/10" : "text-foreground hover:bg-secondary/50"
+                  }`}
+                >
+                  {langLabels[l]}
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* Desktop sidebar */}
       <nav
