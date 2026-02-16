@@ -17,6 +17,7 @@ const translations: Translations = {
   "nav.testimonials": { ar: "آراء العملاء", en: "Testimonials", zh: "客户评价" },
   "nav.faq": { ar: "الأسئلة", en: "FAQ", zh: "常见问题" },
   "nav.contact": { ar: "تواصل معنا", en: "Contact", zh: "联系我们" },
+  "nav.blog": { ar: "المدونة", en: "Blog", zh: "博客" },
 
   // Hero
   "hero.build": { ar: "ابنِ", en: "Build", zh: "建立" },
@@ -148,6 +149,44 @@ const translations: Translations = {
   "footer.packages": { ar: "الباقات", en: "Packages", zh: "套餐" },
   "footer.resources": { ar: "المصادر", en: "Resources", zh: "资源" },
   "footer.rights": { ar: "جميع الحقوق محفوظة", en: "All rights reserved", zh: "版权所有" },
+  "footer.privacy": { ar: "سياسة الخصوصية", en: "Privacy Policy", zh: "隐私政策" },
+
+  // Blog
+  "blog.title": { ar: "المدونة", en: "Blog", zh: "博客" },
+  "blog.subtitle": { ar: "مقالات ونصائح لتنمية أعمالك الرقمية", en: "Articles and tips to grow your digital business", zh: "助力数字业务增长的文章与技巧" },
+  "blog.cat.strategy": { ar: "استراتيجية", en: "Strategy", zh: "策略" },
+  "blog.cat.design": { ar: "تصميم", en: "Design", zh: "设计" },
+  "blog.cat.tech": { ar: "تقنية", en: "Technology", zh: "技术" },
+  "blog.cat.marketing": { ar: "تسويق", en: "Marketing", zh: "营销" },
+  "blog.post1.title": { ar: "5 أسرار لتحويل موقعك إلى آلة مبيعات", en: "5 Secrets to Turn Your Website Into a Sales Machine", zh: "将网站变成销售机器的5个秘密" },
+  "blog.post1.excerpt": { ar: "اكتشف كيف يمكن لتعديلات بسيطة أن تضاعف مبيعاتك", en: "Discover how simple tweaks can double your sales", zh: "了解简单调整如何使您的销售翻倍" },
+  "blog.post1.content": { ar: "في عالم التجارة الرقمية، موقعك هو واجهة متجرك. إليك 5 أسرار مثبتة:\n\n1. سرعة التحميل: كل ثانية تأخير تقلل التحويلات بنسبة 7%\n2. تجربة المستخدم: اجعل رحلة الشراء بسيطة وسلسة\n3. الثقة البصرية: استخدم شهادات العملاء والضمانات\n4. الدعوة للعمل: أزرار واضحة ومقنعة في كل صفحة\n5. التخصيص: قدم تجربة مخصصة لكل زائر", en: "In the digital commerce world, your website is your storefront. Here are 5 proven secrets:\n\n1. Loading Speed: Every second of delay reduces conversions by 7%\n2. User Experience: Make the buying journey simple and smooth\n3. Visual Trust: Use testimonials and guarantees\n4. Call to Action: Clear, compelling buttons on every page\n5. Personalization: Deliver a tailored experience for each visitor", zh: "在数字商务世界中，您的网站就是您的店面。以下是5个经过验证的秘密：\n\n1. 加载速度：每延迟一秒，转化率降低7%\n2. 用户体验：使购买旅程简单流畅\n3. 视觉信任：使用客户评价和保证\n4. 行动号召：每页都有清晰引人注目的按钮\n5. 个性化：为每位访客提供定制体验" },
+  "blog.post2.title": { ar: "اتجاهات تصميم المواقع في 2026", en: "Web Design Trends in 2026", zh: "2026年网页设计趋势" },
+  "blog.post2.excerpt": { ar: "تعرف على أحدث اتجاهات التصميم التي تشكل مستقبل الويب", en: "Learn about the latest design trends shaping the future of the web", zh: "了解塑造网络未来的最新设计趋势" },
+  "blog.post2.content": { ar: "التصميم الرقمي يتطور باستمرار. إليك أبرز اتجاهات 2026:\n\n• الزجاجية المورفية (Glassmorphism) مع تأثيرات ثلاثية الأبعاد\n• الأنيميشن التفاعلي المدعوم بالذكاء الاصطناعي\n• التصميم المظلم مع ألوان نيون حيوية\n• واجهات صوتية وحركية\n• تجارب غامرة مع الواقع المعزز في المتصفح", en: "Digital design is constantly evolving. Here are the top 2026 trends:\n\n• Glassmorphism with 3D effects\n• AI-powered interactive animations\n• Dark design with vibrant neon accents\n• Voice and gesture interfaces\n• Immersive browser-based AR experiences", zh: "数字设计在不断发展。以下是2026年的顶级趋势：\n\n• 玻璃拟态与3D效果\n• AI驱动的交互动画\n• 暗色设计配充满活力的霓虹色调\n• 语音和手势界面\n• 沉浸式浏览器AR体验" },
+  "blog.post3.title": { ar: "كيف يغير الذكاء الاصطناعي قواعد اللعبة", en: "How AI Is Changing the Game", zh: "AI如何改变游戏规则" },
+  "blog.post3.excerpt": { ar: "الذكاء الاصطناعي ليس المستقبل فحسب — إنه الحاضر", en: "AI isn't just the future — it's the present", zh: "AI不仅是未来——它就是现在" },
+  "blog.post3.content": { ar: "الذكاء الاصطناعي يحول الأعمال الرقمية بطرق غير مسبوقة:\n\n• أتمتة خدمة العملاء بنسبة 80%\n• تحليل بيانات العملاء للتنبؤ بالسلوك\n• إنشاء محتوى مخصص تلقائياً\n• تحسين حملات التسويق في الوقت الفعلي\n• روبوتات محادثة ذكية تزيد المبيعات", en: "AI is transforming digital businesses in unprecedented ways:\n\n• Automating 80% of customer service\n• Analyzing customer data to predict behavior\n• Automatically creating personalized content\n• Optimizing marketing campaigns in real-time\n• Smart chatbots that increase sales", zh: "AI正在以前所未有的方式改变数字业务：\n\n• 自动化80%的客户服务\n• 分析客户数据预测行为\n• 自动创建个性化内容\n• 实时优化营销活动\n• 智能聊天机器人增加销售" },
+  "blog.post4.title": { ar: "دليلك الشامل للتسويق الرقمي", en: "Your Complete Digital Marketing Guide", zh: "您的完整数字营销指南" },
+  "blog.post4.excerpt": { ar: "كل ما تحتاج معرفته لتسويق مشروعك بنجاح", en: "Everything you need to know to market your business successfully", zh: "成功营销业务所需的一切" },
+  "blog.post4.content": { ar: "التسويق الرقمي الفعال يتطلب استراتيجية متكاملة:\n\n1. حدد جمهورك المستهدف بدقة\n2. أنشئ محتوى قيم يحل مشاكل العملاء\n3. استثمر في تحسين محركات البحث (SEO)\n4. استخدم وسائل التواصل الاجتماعي بذكاء\n5. قس النتائج وحسّن باستمرار", en: "Effective digital marketing requires an integrated strategy:\n\n1. Define your target audience precisely\n2. Create valuable content that solves customer problems\n3. Invest in SEO\n4. Use social media strategically\n5. Measure results and continuously improve", zh: "有效的数字营销需要综合策略：\n\n1. 精确定义目标受众\n2. 创建解决客户问题的有价值内容\n3. 投资SEO\n4. 战略性地使用社交媒体\n5. 衡量结果并持续改进" },
+  "blog.cta": { ar: "استشرنا عبر واتساب", en: "Consult us on WhatsApp", zh: "通过WhatsApp咨询我们" },
+  "blog.cta.message": { ar: "مرحباً، قرأت مقالكم وأريد استشارة", en: "Hi, I read your article and want a consultation", zh: "你好，我读了你们的文章，想咨询一下" },
+
+  // Privacy
+  "privacy.title": { ar: "سياسة الخصوصية", en: "Privacy Policy", zh: "隐私政策" },
+  "privacy.back": { ar: "العودة للرئيسية", en: "Back to Home", zh: "返回首页" },
+  "privacy.lastUpdated": { ar: "آخر تحديث", en: "Last updated", zh: "最后更新" },
+  "privacy.section1.title": { ar: "جمع المعلومات", en: "Information Collection", zh: "信息收集" },
+  "privacy.section1.content": { ar: "نجمع المعلومات التي تقدمها لنا طوعاً عند التواصل معنا عبر نموذج الاتصال أو واتساب، بما في ذلك اسمك وبريدك الإلكتروني ورسالتك.", en: "We collect information you voluntarily provide when contacting us via the contact form or WhatsApp, including your name, email, and message.", zh: "我们收集您通过联系表单或WhatsApp自愿提供的信息，包括您的姓名、电子邮件和消息。" },
+  "privacy.section2.title": { ar: "استخدام المعلومات", en: "Use of Information", zh: "信息使用" },
+  "privacy.section2.content": { ar: "نستخدم معلوماتك فقط للرد على استفساراتك وتقديم خدماتنا. لا نبيع أو نشارك بياناتك مع أطراف ثالثة.", en: "We use your information solely to respond to your inquiries and provide our services. We do not sell or share your data with third parties.", zh: "我们仅使用您的信息来回复您的查询和提供服务。我们不会向第三方出售或分享您的数据。" },
+  "privacy.section3.title": { ar: "حماية البيانات", en: "Data Protection", zh: "数据保护" },
+  "privacy.section3.content": { ar: "نتخذ إجراءات أمنية مناسبة لحماية معلوماتك من الوصول غير المصرح به أو التعديل أو الإفشاء.", en: "We implement appropriate security measures to protect your information from unauthorized access, modification, or disclosure.", zh: "我们采取适当的安全措施保护您的信息免受未经授权的访问、修改或泄露。" },
+  "privacy.section4.title": { ar: "ملفات تعريف الارتباط", en: "Cookies", zh: "Cookie政策" },
+  "privacy.section4.content": { ar: "يستخدم موقعنا ملفات تعريف الارتباط لتحسين تجربتك. يمكنك تعطيلها من إعدادات متصفحك.", en: "Our website uses cookies to improve your experience. You can disable them in your browser settings.", zh: "我们的网站使用Cookie来改善您的体验。您可以在浏览器设置中禁用它们。" },
+  "privacy.section5.title": { ar: "التواصل معنا", en: "Contact Us", zh: "联系我们" },
+  "privacy.section5.content": { ar: "إذا كانت لديك أي أسئلة حول سياسة الخصوصية، يمكنك التواصل معنا عبر واتساب أو نموذج الاتصال في الموقع.", en: "If you have any questions about our privacy policy, you can contact us via WhatsApp or the contact form on our website.", zh: "如果您对我们的隐私政策有任何疑问，可以通过WhatsApp或网站上的联系表单与我们联系。" },
 
   // Language
   "lang.switch": { ar: "EN", en: "عربي", zh: "EN" },

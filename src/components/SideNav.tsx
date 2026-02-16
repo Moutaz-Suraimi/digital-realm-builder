@@ -3,8 +3,9 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Home, Users, Layers, Package, Lightbulb,
-  HelpCircle, MessageSquare, Menu, X, Globe, Briefcase, Star
+  HelpCircle, MessageSquare, Menu, X, Globe, Briefcase, Star, BookOpen
 } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { key: "nav.home", icon: Home, href: "#home" },
@@ -15,6 +16,7 @@ const navItems = [
   { key: "nav.portfolio", icon: Briefcase, href: "#portfolio" },
   { key: "nav.testimonials", icon: Star, href: "#testimonials" },
   { key: "nav.faq", icon: HelpCircle, href: "#faq" },
+  { key: "nav.blog", icon: BookOpen, href: "#blog" },
   { key: "nav.contact", icon: MessageSquare, href: "#contact" },
 ];
 
@@ -49,7 +51,8 @@ const SideNav = () => {
       </button>
 
       {/* Language switcher - top corner */}
-      <div className="fixed top-4 z-50" style={{ [isRtl ? "left" : "right"]: "1rem" }}>
+      <div className="fixed top-4 z-50 flex items-center gap-2" style={{ [isRtl ? "left" : "right"]: "1rem" }}>
+        <ThemeToggle />
         <button
           onClick={cycleLang}
           className="p-3 glass rounded-lg neon-border flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
