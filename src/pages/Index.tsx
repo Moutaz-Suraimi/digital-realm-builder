@@ -12,6 +12,7 @@ import BlogSection from "@/components/BlogSection";
 import ContactSection from "@/components/ContactSection";
 import FooterSection from "@/components/FooterSection";
 import CinematicIntro from "@/components/CinematicIntro";
+import ChatbotWidget from "@/components/ChatbotWidget";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const INTRO_KEY = "surimi_intro_seen";
@@ -48,6 +49,7 @@ const Index = () => {
         <ContactSection />
         <FooterSection />
       </main>
+      <ChatbotWidget />
     </div>
   );
 };

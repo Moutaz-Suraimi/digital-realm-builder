@@ -118,6 +118,9 @@ const translations: Translations = {
   "packages.popular": { ar: "الأكثر طلباً", en: "Most Popular", zh: "最受欢迎" },
   "packages.bestValue": { ar: "أفضل قيمة", en: "Best Value", zh: "最佳价值" },
   "packages.delivery": { ar: "أيام عمل", en: "business days", zh: "个工作日" },
+  "packages.hub.subtitle": { ar: "اختر مسارك: ابنِ، بِع، أو نمُو", en: "Choose your path: Build, Sell, or Grow", zh: "选择你的路径：建立、销售或成长" },
+  "packages.more": { ar: "المزيد من التفاصيل", en: "More details", zh: "更多详情" },
+  "packages.less": { ar: "إخفاء التفاصيل", en: "Less details", zh: "收起详情" },
 
   // Solutions
   "solutions.title": { ar: "حلولنا", en: "Our Solutions", zh: "我们的解决方案" },
@@ -157,11 +160,17 @@ const translations: Translations = {
 
   // Contact
   "contact.title": { ar: "تواصل معنا", en: "Contact Us", zh: "联系我们" },
+  "contact.briefing.subtitle": { ar: "غرفة الإحاطة الرقمية — أخبرنا عن مشروعك", en: "Digital Briefing Room — Tell us about your project", zh: "数字简报室 — 告诉我们您的项目" },
   "contact.name": { ar: "الاسم", en: "Name", zh: "姓名" },
   "contact.email": { ar: "البريد الإلكتروني", en: "Email", zh: "电子邮件" },
-  "contact.message": { ar: "الرسالة", en: "Message", zh: "消息" },
+  "contact.message": { ar: "أخبرنا عن رؤيتك...", en: "Tell us about your vision...", zh: "告诉我们您的愿景..." },
   "contact.send": { ar: "إرسال", en: "Send", zh: "发送" },
   "contact.whatsapp": { ar: "أو تواصل عبر واتساب", en: "Or contact via WhatsApp", zh: "或通过WhatsApp联系" },
+  "contact.next": { ar: "التالي", en: "Next", zh: "下一步" },
+  "contact.back": { ar: "رجوع", en: "Back", zh: "返回" },
+  "contact.submit": { ar: "إرسال عبر واتساب", en: "Send via WhatsApp", zh: "通过WhatsApp发送" },
+  "contact.success.title": { ar: "تم الإرسال بنجاح!", en: "Successfully Sent!", zh: "发送成功！" },
+  "contact.success.message": { ar: "سيتم فتح واتساب لإرسال رسالتك...", en: "WhatsApp will open to send your message...", zh: "WhatsApp将打开以发送您的消息..." },
 
   // Footer
   "footer.services": { ar: "الخدمات", en: "Services", zh: "服务" },
@@ -207,6 +216,21 @@ const translations: Translations = {
   "privacy.section4.content": { ar: "يستخدم موقعنا ملفات تعريف الارتباط لتحسين تجربتك. يمكنك تعطيلها من إعدادات متصفحك.", en: "Our website uses cookies to improve your experience. You can disable them in your browser settings.", zh: "我们的网站使用Cookie来改善您的体验。您可以在浏览器设置中禁用它们。" },
   "privacy.section5.title": { ar: "التواصل معنا", en: "Contact Us", zh: "联系我们" },
   "privacy.section5.content": { ar: "إذا كانت لديك أي أسئلة حول سياسة الخصوصية، يمكنك التواصل معنا عبر واتساب أو نموذج الاتصال في الموقع.", en: "If you have any questions about our privacy policy, you can contact us via WhatsApp or the contact form on our website.", zh: "如果您对我们的隐私政策有任何疑问，可以通过WhatsApp或网站上的联系表单与我们联系。" },
+
+  // Chatbot
+  "chatbot.title": { ar: "مساعد صُرَيمي", en: "Surimi Assistant", zh: "Surimi助手" },
+  "chatbot.online": { ar: "متصل الآن", en: "Online now", zh: "在线" },
+  "chatbot.welcome": { ar: "مرحباً! كيف يمكنني مساعدتك اليوم؟ 💜", en: "Hello! How can I help you today? 💜", zh: "你好！今天我能帮你什么？💜" },
+  "chatbot.placeholder": { ar: "اكتب رسالتك...", en: "Type your message...", zh: "输入您的消息..." },
+  "chatbot.quick.pricing": { ar: "الأسعار والباقات", en: "Pricing & Packages", zh: "价格与套餐" },
+  "chatbot.quick.portfolio": { ar: "أعمالكم السابقة", en: "Your Portfolio", zh: "你们的作品" },
+  "chatbot.quick.contact": { ar: "أريد التواصل", en: "I want to connect", zh: "我想联系" },
+  "chatbot.quick.services": { ar: "ما خدماتكم؟", en: "What services?", zh: "你们的服务？" },
+  "chatbot.reply.packages": { ar: "ممتاز! سأنقلك لباقاتنا الآن ←", en: "Great! Let me take you to our packages →", zh: "好的！让我带你去我们的套餐 →" },
+  "chatbot.reply.portfolio": { ar: "تعال شاهد أحدث أعمالنا ←", en: "Come see our latest work →", zh: "来看看我们最新的作品 →" },
+  "chatbot.reply.contact": { ar: "بالتأكيد! سأنقلك لنموذج التواصل ←", en: "Sure! Let me take you to our contact form →", zh: "当然！让我带你去联系表单 →" },
+  "chatbot.reply.solutions": { ar: "اكتشف حلولنا المتكاملة ←", en: "Discover our integrated solutions →", zh: "了解我们的综合解决方案 →" },
+  "chatbot.redirect": { ar: "سأوصلك بفريقنا عبر واتساب الآن...", en: "I'll connect you with our team via WhatsApp now...", zh: "我现在将通过WhatsApp为您联系我们的团队..." },
 
   // Language
   "lang.switch": { ar: "EN", en: "عربي", zh: "EN" },
