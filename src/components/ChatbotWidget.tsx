@@ -97,9 +97,9 @@ const ChatbotWidget = () => {
             style={{ [isRtl ? "left" : "right"]: "1.5rem" }}
           >
             <MessageCircle className="w-6 h-6" />
-            {/* Pulse indicator */}
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-accent animate-ping" />
-            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-accent" />
+            {/* Pulse indicator — mirrors for RTL */}
+            <span className={`absolute -top-1 ${isRtl ? "-left-1" : "-right-1"} w-4 h-4 rounded-full bg-accent animate-ping`} />
+            <span className={`absolute -top-1 ${isRtl ? "-left-1" : "-right-1"} w-4 h-4 rounded-full bg-accent`} />
           </motion.button>
         )}
       </AnimatePresence>
@@ -126,7 +126,7 @@ const ChatbotWidget = () => {
                     {t("chatbot.title")}
                   </p>
                   <p className="text-[10px] text-primary-foreground/70 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block" />
                     {t("chatbot.online")}
                   </p>
                 </div>
