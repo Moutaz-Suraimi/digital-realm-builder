@@ -217,6 +217,156 @@ const translations: Translations = {
   "privacy.section5.title": { ar: "التواصل معنا", en: "Contact Us", zh: "联系我们" },
   "privacy.section5.content": { ar: "إذا كانت لديك أي أسئلة حول سياسة الخصوصية، يمكنك التواصل معنا عبر واتساب أو نموذج الاتصال في الموقع.", en: "If you have any questions about our privacy policy, you can contact us via WhatsApp or the contact form on our website.", zh: "如果您对我们的隐私政策有任何疑问，可以通过WhatsApp或网站上的联系表单与我们联系。" },
 
+  // Packages v2 – tabs & labels
+  "packages.tab.content": { ar: "تصميم المحتوى", en: "Content Design", zh: "内容设计" },
+  "packages.tab.ads":     { ar: "الإعلانات المدفوعة", en: "Paid Ads", zh: "付费广告" },
+  "packages.tab.website": { ar: "تصميم المواقع", en: "Website Design", zh: "网站设计" },
+  "packages.tab.ecommerce": { ar: "المتاجر الإلكترونية", en: "E-Commerce", zh: "电子商务" },
+  "packages.tab.mixed":   { ar: "الباقات المدمجة", en: "Mixed Packages", zh: "混合套餐" },
+  "packages.hub.label":   { ar: "مركز الباقات الرقمية", en: "Digital Packages Hub", zh: "数字套餐中心" },
+  "packages.requested":   { ar: "الأكثر طلباً", en: "Most Requested", zh: "最受欢迎" },
+  "packages.yer":         { ar: "ريال يمني", en: "YER", zh: "也门里亚尔" },
+  "packages.note":        {
+    ar: "جميع الأسعار تبدأ من — تواصل معنا لباقة مخصصة لاحتياجاتك",
+    en: "All prices are starting from — contact us for a package tailored to your needs",
+    zh: "所有价格均为起价 — 联系我们获取定制套餐",
+  },
+
+  // Content Design package names
+  "packages.content.basic.name":    { ar: "الباقة الأساسية", en: "Basic Package", zh: "基础套餐" },
+  "packages.content.standard.name": { ar: "الباقة القياسية", en: "Standard Package", zh: "标准套餐" },
+  "packages.content.premium.name":  { ar: "الباقة المميزة", en: "Premium Package", zh: "高级套餐" },
+
+  // Content Design – expanded description
+  "packages.content.basic.name.desc":    { ar: "مثالي للعلامات التجارية الناشئة التي تحتاج إلى حضور مرئي متسق على السوشيال ميديا.", en: "Perfect for emerging brands needing consistent visual presence on social media.", zh: "适合需要在社交媒体上保持一致视觉呈现的新兴品牌。" },
+  "packages.content.standard.name.desc": { ar: "يشمل تخطيط تقويم المحتوى ورسومات محسّنة لزيادة تفاعل الحملات.", en: "Includes content calendar planning and campaign-optimised graphics for higher engagement.", zh: "包含内容日历规划和活动优化图形，提升互动率。" },
+  "packages.content.premium.name.desc":  { ar: "مثالي للعلامات التي تحتاج إلى محتوى متحرك وقوالب حملات احترافية.", en: "Ideal for brands needing animated content and professional campaign templates.", zh: "适合需要动态内容和专业活动模板的品牌。" },
+
+  // Paid Ads package names
+  "packages.ads.starter.name": { ar: "باقة البداية", en: "Starter Package", zh: "入门套餐" },
+  "packages.ads.growth.name":  { ar: "باقة النمو", en: "Growth Package", zh: "成长套餐" },
+  "packages.ads.pro.name":     { ar: "الباقة الاحترافية", en: "Pro Package", zh: "专业套餐" },
+
+  // Paid Ads – expanded description
+  "packages.ads.starter.name.desc": { ar: "إعداد أساسي لحملات Meta وGoogle مع استهداف بسيط لبدء النتائج.", en: "Basic Meta/Google campaign setup with simple targeting to start generating results.", zh: "Meta/Google基础活动配置，简单定向开始产生效果。" },
+  "packages.ads.growth.name.desc":  { ar: "إدارة حملات احترافية مع اختبار A/B وتقارير شهرية مفصّلة.", en: "Professional campaign management with A/B testing and detailed monthly reports.", zh: "专业活动管理，A/B测试和详细月度报告。" },
+  "packages.ads.pro.name.desc":     { ar: "حملات متعددة المنصات مع تحليلات متقدمة وتعديل استراتيجي مستمر.", en: "Multi-platform campaigns with advanced analytics and continuous strategy refinement.", zh: "多平台活动，高级分析和持续策略调整。" },
+
+  // Website Design package names
+  "packages.web.basic.name":   { ar: "WordPress الأساسي", en: "WordPress Basic", zh: "WordPress基础" },
+  "packages.web.dynamic.name": { ar: "موقع ديناميكي", en: "Dynamic Website", zh: "动态网站" },
+  "packages.web.custom.name":  { ar: "موقع مخصص", en: "Custom Website", zh: "定制网站" },
+
+  // Website Design – expanded description
+  "packages.web.basic.name.desc":   { ar: "موقع WordPress بسيط يشمل الصفحات الأساسية ونموذج الاتصال.", en: "Simple WordPress site with essential pages and a contact form.", zh: "简单的WordPress网站，包含基础页面和联系表单。" },
+  "packages.web.dynamic.name.desc": { ar: "موقع تفاعلي مع نظام إدارة المحتوى، محسّن للجوال ومحركات البحث.", en: "Interactive website with CMS, optimised for mobile and search engines.", zh: "带CMS的交互式网站，针对移动端和搜索引擎优化。" },
+  "packages.web.custom.name.desc":  { ar: "تصميم ومميزات مخصصة بالكامل حسب احتياجات مشروعك.", en: "Fully custom design and features tailored to your project's requirements.", zh: "完全定制设计和功能，根据项目需求量身打造。" },
+
+  // E-Commerce package names
+  "packages.eco.basic.name":    { ar: "متجر أساسي", en: "Basic Store", zh: "基础商店" },
+  "packages.eco.standard.name": { ar: "متجر قياسي", en: "Standard Store", zh: "标准商店" },
+  "packages.eco.full.name":     { ar: "نظام متجر متكامل", en: "Full E-Commerce System", zh: "完整电商系统" },
+
+  // E-Commerce – expanded description
+  "packages.eco.basic.name.desc":    { ar: "إعداد متجر إلكتروني بسيط مع إدارة المنتجات.", en: "Simple online store setup with product management.", zh: "简单网店设置，含产品管理。" },
+  "packages.eco.standard.name.desc": { ar: "متجر متكامل مع بوابة الدفع ونظام إدارة المحتوى.", en: "Full store with payment gateway integration and CMS.", zh: "完整商店，含支付网关集成和CMS。" },
+  "packages.eco.full.name.desc":     { ar: "متجر مخصص بالكامل مع تطبيقات وميزات متقدمة.", en: "Fully custom store with apps and advanced features.", zh: "完全定制商店，含应用程序和高级功能。" },
+
+  // Mixed package names
+  "packages.mix.starter.name": { ar: "مزيج البداية", en: "Starter Mix", zh: "入门组合" },
+  "packages.mix.growth.name":  { ar: "مزيج النمو", en: "Growth Mix", zh: "成长组合" },
+  "packages.mix.pro.name":     { ar: "المزيج الاحترافي", en: "Pro Mix", zh: "专业组合" },
+
+  // Mixed – expanded description
+  "packages.mix.starter.name.desc": { ar: "محتوى أساسي مدمج مع إعلانات بداية لانطلاقة قوية.", en: "Basic content combined with starter ads for a strong launch.", zh: "基础内容与入门广告结合，强势启动。" },
+  "packages.mix.growth.name.desc":  { ar: "محتوى قياسي مع إعلانات نمو للحصول على أعلى تأثير.", en: "Standard content with growth ads for maximum impact.", zh: "标准内容与成长广告组合，实现最大影响力。" },
+  "packages.mix.pro.name.desc":     { ar: "محتوى مميز مع إعلانات احترافية لهيمنة رقمية كاملة.", en: "Premium content with pro ads for full digital dominance.", zh: "高级内容与专业广告，实现全面数字主导。" },
+
+  // WhatsApp pre-filled messages – Content Design
+  "packages.wa.content.basic":    {
+    ar: "مرحباً، أنا مهتم بباقة المحتوى الأساسية بسعر 50$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Basic Content Design Package at $50. Please contact me to start my project.",
+    zh: "您好，我对50美元的基础内容设计套餐感兴趣，请联系我开始项目。",
+  },
+  "packages.wa.content.standard": {
+    ar: "مرحباً، أنا مهتم بباقة المحتوى القياسية بسعر 75$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Standard Content Design Package at $75. Please contact me to start my project.",
+    zh: "您好，我对75美元的标准内容设计套餐感兴趣，请联系我开始项目。",
+  },
+  "packages.wa.content.premium": {
+    ar: "مرحباً، أنا مهتم بباقة المحتوى المميزة بسعر 100$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Premium Content Design Package at $100. Please contact me to start my project.",
+    zh: "您好，我对100美元的高级内容设计套餐感兴趣，请联系我开始项目。",
+  },
+
+  // WhatsApp pre-filled messages – Paid Ads
+  "packages.wa.ads.starter": {
+    ar: "مرحباً، أنا مهتم بباقة الإعلانات الأساسية بسعر 75$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Starter Ads Package at $75. Please contact me to start my project.",
+    zh: "您好，我对75美元的入门广告套餐感兴趣，请联系我开始项目。",
+  },
+  "packages.wa.ads.growth": {
+    ar: "مرحباً، أنا مهتم بباقة الإعلانات للنمو بسعر 150$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Growth Ads Package at $150. Please contact me to start my project.",
+    zh: "您好，我对150美元的成长广告套餐感兴趣，请联系我开始项目。",
+  },
+  "packages.wa.ads.pro": {
+    ar: "مرحباً، أنا مهتم بباقة الإعلانات الاحترافية بسعر 225$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Pro Ads Package at $225. Please contact me to start my project.",
+    zh: "您好，我对225美元的专业广告套餐感兴趣，请联系我开始项目。",
+  },
+
+  // WhatsApp pre-filled messages – Website Design
+  "packages.wa.web.basic": {
+    ar: "مرحباً، أنا مهتم بباقة WordPress الأساسية بسعر 100$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the WordPress Basic Website Package at $100. Please contact me to start my project.",
+    zh: "您好，我对100美元的WordPress基础网站套餐感兴趣，请联系我开始项目。",
+  },
+  "packages.wa.web.dynamic": {
+    ar: "مرحباً، أنا مهتم بباقة الموقع الديناميكي بسعر 150$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Dynamic Website Package at $150. Please contact me to start my project.",
+    zh: "您好，我对150美元的动态网站套餐感兴趣，请联系我开始项目。",
+  },
+  "packages.wa.web.custom": {
+    ar: "مرحباً، أنا مهتم بباقة الموقع المخصص بسعر 225$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Custom Website Package at $225. Please contact me to start my project.",
+    zh: "您好，我对225美元的定制网站套餐感兴趣，请联系我开始项目。",
+  },
+
+  // WhatsApp pre-filled messages – E-Commerce
+  "packages.wa.eco.basic": {
+    ar: "مرحباً، أنا مهتم بباقة المتجر الأساسية بسعر 150$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Basic Store Package at $150. Please contact me to start my project.",
+    zh: "您好，我对150美元的基础商店套餐感兴趣，请联系我开始项目。",
+  },
+  "packages.wa.eco.standard": {
+    ar: "مرحباً، أنا مهتم بباقة المتجر القياسية بسعر 225$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Standard Store Package at $225. Please contact me to start my project.",
+    zh: "您好，我对225美元的标准商店套餐感兴趣，请联系我开始项目。",
+  },
+  "packages.wa.eco.full": {
+    ar: "مرحباً، أنا مهتم بباقة المتجر المتكامل بسعر 300$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Full E-Commerce System at $300. Please contact me to start my project.",
+    zh: "您好，我对300美元的完整电商系统感兴趣，请联系我开始项目。",
+  },
+
+  // WhatsApp pre-filled messages – Mixed
+  "packages.wa.mix.starter": {
+    ar: "مرحباً، أنا مهتم بباقة المزيج الأساسية بسعر 100$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Starter Mix Package at $100. Please contact me to start my project.",
+    zh: "您好，我对100美元的入门组合套餐感兴趣，请联系我开始项目。",
+  },
+  "packages.wa.mix.growth": {
+    ar: "مرحباً، أنا مهتم بباقة مزيج النمو بسعر 200$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Growth Mix Package at $200. Please contact me to start my project.",
+    zh: "您好，我对200美元的成长组合套餐感兴趣，请联系我开始项目。",
+  },
+  "packages.wa.mix.pro": {
+    ar: "مرحباً، أنا مهتم بالمزيج الاحترافي بسعر 300$. أرجو التواصل لبدء مشروعي.",
+    en: "Hello, I am interested in the Pro Mix Package at $300. Please contact me to start my project.",
+    zh: "您好，我对300美元的专业组合套餐感兴趣，请联系我开始项目。",
+  },
+
   // Chatbot
   "chatbot.title": { ar: "مساعد صُرَيمي", en: "Surimi Assistant", zh: "Surimi助手" },
   "chatbot.online": { ar: "متصل الآن", en: "Online now", zh: "在线" },
