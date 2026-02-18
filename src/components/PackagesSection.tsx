@@ -1,185 +1,224 @@
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Star, Zap, Hammer, ShoppingCart, TrendingUp, ChevronDown, MessageCircle } from "lucide-react";
+import {
+  Check, Star, ChevronDown, MessageCircle,
+  Palette, Megaphone, Globe, ShoppingBag, Layers,
+} from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 const WHATSAPP_NUMBER = "967780930635";
-
 type LangKey = "ar" | "en" | "zh";
 
 interface PkgCard {
-  name: { ar: string; en: string; zh: string };
-  price: number;
+  nameKey: string;
+  priceUSD: number;
+  priceYER: number;
   features: { ar: string; en: string; zh: string }[];
-  details: { ar: string; en: string; zh: string }[];
-  delivery: number;
-  badge?: "popular" | "value";
+  badge?: "requested";
+  waKey: string;
 }
 
-const paths = [
+interface PathData {
+  key: string;
+  icon: React.ElementType;
+  labelKey: string;
+  packages: PkgCard[];
+}
+
+// ─── DATA ──────────────────────────────────────────────────────────────────────
+
+const paths: PathData[] = [
   {
-    key: "build",
-    icon: Hammer,
-    color: "from-primary to-accent",
+    key: "content",
+    icon: Palette,
+    labelKey: "packages.tab.content",
     packages: [
       {
-        name: { ar: "موقع ووردبريس", en: "WordPress Website", zh: "WordPress网站" },
-        price: 300, delivery: 7,
+        nameKey: "packages.content.basic.name",
+        priceUSD: 50,
+        priceYER: 26600,
         features: [
-          { ar: "تصميم احترافي", en: "Professional design", zh: "专业设计" },
-          { ar: "متجاوب مع الجوال", en: "Mobile responsive", zh: "移动端适配" },
-          { ar: "SEO أساسي", en: "Basic SEO", zh: "基础SEO" },
+          { ar: "منشورات وسائل التواصل الاجتماعي", en: "Social media posts", zh: "社交媒体帖子" },
+          { ar: "تنسيق ألوان الهوية التجارية", en: "Branding colors coordination", zh: "品牌配色协调" },
+          { ar: "مثالي للمبتدئين", en: "Ideal for beginners", zh: "适合初学者" },
         ],
-        details: [
-          { ar: "5 صفحات مخصصة", en: "5 custom pages", zh: "5个自定义页面" },
-          { ar: "نموذج اتصال", en: "Contact form", zh: "联系表单" },
-          { ar: "تدريب على الإدارة", en: "Admin training", zh: "后台管理培训" },
-        ],
+        waKey: "packages.wa.content.basic",
       },
       {
-        name: { ar: "موقع ديناميكي", en: "Dynamic Website", zh: "动态网站" },
-        price: 400, delivery: 10, badge: "popular" as const,
+        nameKey: "packages.content.standard.name",
+        priceUSD: 75,
+        priceYER: 39900,
+        badge: "requested",
         features: [
-          { ar: "تصميم مخصص", en: "Custom design", zh: "定制设计" },
-          { ar: "لوحة تحكم", en: "Admin panel", zh: "管理面板" },
-          { ar: "تحسين SEO", en: "SEO optimization", zh: "SEO优化" },
+          { ar: "جميع خدمات الباقة الأساسية", en: "All Basic services", zh: "包含基础套餐所有服务" },
+          { ar: "تخطيط تقويم المحتوى", en: "Content calendar planning", zh: "内容日历规划" },
+          { ar: "رسومات محسّنة للحملات", en: "Optimized graphics for campaigns", zh: "优化活动图形" },
         ],
-        details: [
-          { ar: "10 صفحات", en: "10 pages", zh: "10个页面" },
-          { ar: "مدونة متكاملة", en: "Integrated blog", zh: "集成博客" },
-          { ar: "تحليلات مفصلة", en: "Detailed analytics", zh: "详细分析" },
-        ],
+        waKey: "packages.wa.content.standard",
       },
       {
-        name: { ar: "موقع شبه مخصص", en: "Semi-Custom Website", zh: "半定制网站" },
-        price: 500, delivery: 15,
+        nameKey: "packages.content.premium.name",
+        priceUSD: 100,
+        priceYER: 53200,
         features: [
-          { ar: "تصميم فريد", en: "Unique design", zh: "独特设计" },
-          { ar: "تكاملات API", en: "API integrations", zh: "API集成" },
-          { ar: "أداء محسن", en: "Optimized performance", zh: "性能优化" },
+          { ar: "جميع خدمات الباقة القياسية", en: "All Standard services", zh: "包含标准套餐所有服务" },
+          { ar: "محتوى متحرك ومنشورات فيديو", en: "Animated content, video posts", zh: "动态内容和视频帖子" },
+          { ar: "قوالب حملات موسّعة", en: "Extended campaign templates", zh: "扩展活动模板" },
         ],
-        details: [
-          { ar: "رسوم متحركة مخصصة", en: "Custom animations", zh: "自定义动画" },
-          { ar: "تكامل CRM", en: "CRM integration", zh: "CRM集成" },
-          { ar: "اختبار A/B", en: "A/B testing", zh: "A/B测试" },
-        ],
-      },
-      {
-        name: { ar: "موقع مخصص بالكامل", en: "Custom Website", zh: "全定制网站" },
-        price: 800, delivery: 25, badge: "value" as const,
-        features: [
-          { ar: "تطوير كامل", en: "Full development", zh: "全栈开发" },
-          { ar: "ميزات متقدمة", en: "Advanced features", zh: "高级功能" },
-          { ar: "دعم مستمر", en: "Ongoing support", zh: "持续支持" },
-        ],
-        details: [
-          { ar: "بنية قابلة للتوسع", en: "Scalable architecture", zh: "可扩展架构" },
-          { ar: "أمان متقدم", en: "Advanced security", zh: "高级安全" },
-          { ar: "دعم 6 أشهر", en: "6 months support", zh: "6个月支持" },
-        ],
+        waKey: "packages.wa.content.premium",
       },
     ],
   },
   {
-    key: "sell",
-    icon: ShoppingCart,
-    color: "from-accent to-[hsl(var(--neon-blue))]",
+    key: "ads",
+    icon: Megaphone,
+    labelKey: "packages.tab.ads",
     packages: [
       {
-        name: { ar: "متجر إلكتروني", en: "Web Store", zh: "网上商店" },
-        price: 1000, delivery: 15,
+        nameKey: "packages.ads.starter.name",
+        priceUSD: 75,
+        priceYER: 39900,
         features: [
-          { ar: "إدارة المنتجات", en: "Product management", zh: "产品管理" },
-          { ar: "بوابة دفع", en: "Payment gateway", zh: "支付网关" },
-          { ar: "تتبع الطلبات", en: "Order tracking", zh: "订单跟踪" },
+          { ar: "إعداد Meta/Google الأساسي", en: "Meta/Google basic setup", zh: "Meta/Google基础配置" },
+          { ar: "استهداف بسيط", en: "Simple targeting", zh: "简单定向" },
         ],
-        details: [
-          { ar: "حتى 100 منتج", en: "Up to 100 products", zh: "最多100个产品" },
-          { ar: "كوبونات خصم", en: "Discount coupons", zh: "折扣券" },
-          { ar: "تقارير المبيعات", en: "Sales reports", zh: "销售报告" },
-        ],
+        waKey: "packages.wa.ads.starter",
       },
       {
-        name: { ar: "متجر + تطبيق أندرويد", en: "Store + Android App", zh: "商店+安卓应用" },
-        price: 1500, delivery: 20, badge: "popular" as const,
+        nameKey: "packages.ads.growth.name",
+        priceUSD: 150,
+        priceYER: 79800,
+        badge: "requested",
         features: [
-          { ar: "تطبيق أندرويد", en: "Android app", zh: "安卓应用" },
-          { ar: "إشعارات فورية", en: "Push notifications", zh: "推送通知" },
-          { ar: "لوحة تحكم شاملة", en: "Full dashboard", zh: "完整仪表盘" },
+          { ar: "إدارة الحملات الكاملة", en: "Full campaign management", zh: "全面活动管理" },
+          { ar: "اختبار A/B والتحسين", en: "A/B testing & optimization", zh: "A/B测试与优化" },
+          { ar: "تقرير أداء شهري", en: "Monthly performance report", zh: "月度绩效报告" },
         ],
-        details: [
-          { ar: "منتجات غير محدودة", en: "Unlimited products", zh: "无限产品" },
-          { ar: "نشر على Play Store", en: "Play Store publish", zh: "发布到Play Store" },
-          { ar: "إدارة المخزون", en: "Inventory management", zh: "库存管理" },
-        ],
+        waKey: "packages.wa.ads.growth",
       },
       {
-        name: { ar: "متجر + أندرويد وiOS", en: "Store + Android & iOS", zh: "商店+安卓和iOS" },
-        price: 2000, delivery: 30, badge: "value" as const,
+        nameKey: "packages.ads.pro.name",
+        priceUSD: 225,
+        priceYER: 119700,
         features: [
-          { ar: "تطبيق أندرويد وiOS", en: "Android & iOS apps", zh: "安卓和iOS应用" },
-          { ar: "نظام كامل", en: "Complete system", zh: "完整系统" },
-          { ar: "تقارير متقدمة", en: "Advanced reports", zh: "高级报告" },
+          { ar: "حملات متعددة المنصات", en: "Multi-platform campaigns", zh: "多平台活动" },
+          { ar: "تحليلات متقدمة وتحسين", en: "Advanced analytics & optimization", zh: "高级分析与优化" },
+          { ar: "تعديل استراتيجي مستمر", en: "Continuous strategy adjustment", zh: "持续策略调整" },
         ],
-        details: [
-          { ar: "نشر على كلا المتجرين", en: "Published on both stores", zh: "发布到两个商店" },
-          { ar: "برنامج ولاء", en: "Loyalty program", zh: "忠诚度计划" },
-          { ar: "تكامل شحن", en: "Shipping integration", zh: "物流集成" },
-        ],
+        waKey: "packages.wa.ads.pro",
       },
     ],
   },
   {
-    key: "grow",
-    icon: TrendingUp,
-    color: "from-[hsl(var(--neon-blue))] to-primary",
+    key: "website",
+    icon: Globe,
+    labelKey: "packages.tab.website",
     packages: [
       {
-        name: { ar: "باقة الانطلاق", en: "Starter Growth", zh: "入门成长" },
-        price: 200, delivery: 7,
+        nameKey: "packages.web.basic.name",
+        priceUSD: 100,
+        priceYER: 53200,
         features: [
-          { ar: "تحسين SEO", en: "SEO optimization", zh: "SEO优化" },
-          { ar: "تقارير شهرية", en: "Monthly reports", zh: "月度报告" },
-          { ar: "استشارة مجانية", en: "Free consultation", zh: "免费咨询" },
+          { ar: "موقع بسيط بصفحات أساسية", en: "Simple website with basic pages", zh: "包含基础页面的简单网站" },
         ],
-        details: [
-          { ar: "تحليل المنافسين", en: "Competitor analysis", zh: "竞争对手分析" },
-          { ar: "خطة كلمات مفتاحية", en: "Keyword strategy", zh: "关键词策略" },
-          { ar: "تحسين Google My Business", en: "Google My Business optimization", zh: "Google My Business优化" },
-        ],
+        waKey: "packages.wa.web.basic",
       },
       {
-        name: { ar: "باقة النمو", en: "Growth Pro", zh: "专业成长" },
-        price: 500, delivery: 14, badge: "popular" as const,
+        nameKey: "packages.web.dynamic.name",
+        priceUSD: 150,
+        priceYER: 79800,
+        badge: "requested",
         features: [
-          { ar: "إدارة حملات إعلانية", en: "Ad campaign management", zh: "广告活动管理" },
-          { ar: "محتوى اجتماعي", en: "Social content", zh: "社交内容" },
-          { ar: "تحسين التحويلات", en: "Conversion optimization", zh: "转化优化" },
+          { ar: "موقع تفاعلي مع نظام إدارة المحتوى", en: "Interactive website with CMS", zh: "带CMS的交互式网站" },
+          { ar: "محسّن للجوال ومحركات البحث", en: "Optimized for mobile & SEO", zh: "移动端与SEO优化" },
         ],
-        details: [
-          { ar: "8 منشورات شهرية", en: "8 monthly posts", zh: "每月8篇帖子" },
-          { ar: "إعلانات Google & Meta", en: "Google & Meta ads", zh: "Google和Meta广告" },
-          { ar: "تحليلات متقدمة", en: "Advanced analytics", zh: "高级分析" },
-        ],
+        waKey: "packages.wa.web.dynamic",
       },
       {
-        name: { ar: "باقة الهيمنة", en: "Market Domination", zh: "市场主导" },
-        price: 1000, delivery: 30, badge: "value" as const,
+        nameKey: "packages.web.custom.name",
+        priceUSD: 225,
+        priceYER: 119700,
         features: [
-          { ar: "استراتيجية شاملة", en: "Full strategy", zh: "全面策略" },
-          { ar: "فريق مخصص", en: "Dedicated team", zh: "专属团队" },
-          { ar: "نتائج مضمونة", en: "Guaranteed results", zh: "保证结果" },
+          { ar: "تصميم ومميزات مخصصة بالكامل", en: "Fully custom design and features", zh: "完全定制设计和功能" },
         ],
-        details: [
-          { ar: "مدير حساب مخصص", en: "Dedicated account manager", zh: "专属客户经理" },
-          { ar: "حملات متعددة القنوات", en: "Multi-channel campaigns", zh: "多渠道营销" },
-          { ar: "تقارير أسبوعية", en: "Weekly reports", zh: "周报告" },
+        waKey: "packages.wa.web.custom",
+      },
+    ],
+  },
+  {
+    key: "ecommerce",
+    icon: ShoppingBag,
+    labelKey: "packages.tab.ecommerce",
+    packages: [
+      {
+        nameKey: "packages.eco.basic.name",
+        priceUSD: 150,
+        priceYER: 79800,
+        features: [
+          { ar: "إعداد متجر إلكتروني بسيط", en: "Simple online store setup", zh: "简单网店设置" },
         ],
+        waKey: "packages.wa.eco.basic",
+      },
+      {
+        nameKey: "packages.eco.standard.name",
+        priceUSD: 225,
+        priceYER: 119700,
+        badge: "requested",
+        features: [
+          { ar: "متجر + تكامل الدفع + نظام إدارة", en: "Store + Payment integration + CMS", zh: "商店+支付集成+CMS" },
+        ],
+        waKey: "packages.wa.eco.standard",
+      },
+      {
+        nameKey: "packages.eco.full.name",
+        priceUSD: 300,
+        priceYER: 159600,
+        features: [
+          { ar: "متجر مخصص + تطبيقات + ميزات متقدمة", en: "Custom store + apps + advanced features", zh: "定制商店+应用+高级功能" },
+        ],
+        waKey: "packages.wa.eco.full",
+      },
+    ],
+  },
+  {
+    key: "mixed",
+    icon: Layers,
+    labelKey: "packages.tab.mixed",
+    packages: [
+      {
+        nameKey: "packages.mix.starter.name",
+        priceUSD: 100,
+        priceYER: 53200,
+        features: [
+          { ar: "محتوى أساسي + إعلانات بداية", en: "Basic content + Starter Ads", zh: "基础内容+入门广告" },
+        ],
+        waKey: "packages.wa.mix.starter",
+      },
+      {
+        nameKey: "packages.mix.growth.name",
+        priceUSD: 200,
+        priceYER: 106400,
+        badge: "requested",
+        features: [
+          { ar: "محتوى قياسي + إعلانات نمو", en: "Standard Content + Growth Ads", zh: "标准内容+成长广告" },
+        ],
+        waKey: "packages.wa.mix.growth",
+      },
+      {
+        nameKey: "packages.mix.pro.name",
+        priceUSD: 300,
+        priceYER: 159600,
+        features: [
+          { ar: "محتوى مميز + إعلانات احترافية", en: "Premium Content + Pro Ads", zh: "高级内容+专业广告" },
+        ],
+        waKey: "packages.wa.mix.pro",
       },
     ],
   },
 ];
+
+// ─── PACKAGE CARD ─────────────────────────────────────────────────────────────
 
 const PackageCard = ({
   pkg,
@@ -188,54 +227,82 @@ const PackageCard = ({
   onToggle,
 }: {
   pkg: PkgCard;
-  lang: string;
+  lang: LangKey;
   isExpanded: boolean;
   onToggle: () => void;
 }) => {
   const { t } = useLanguage();
-  const l = lang as LangKey;
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cx = e.clientX - rect.left - rect.width / 2;
+    const cy = e.clientY - rect.top - rect.height / 2;
+    setTilt({ x: (cy / rect.height) * 10, y: -(cx / rect.width) * 10 });
+  };
+
+  const handleMouseLeave = () => setTilt({ x: 0, y: 0 });
 
   const sendWhatsApp = () => {
-    const name = pkg.name[l];
-    const msg =
-      lang === "ar"
-        ? `مرحباً، أرغب في الاستفسار عن باقة: ${name} ($${pkg.price})`
-        : lang === "zh"
-        ? `您好，我想了解套餐：${name} ($${pkg.price})`
-        : `Hello, I'd like to inquire about: ${name} ($${pkg.price})`;
+    const msg = t(pkg.waKey);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
   };
+
+  const isRequested = pkg.badge === "requested";
 
   return (
     <motion.div
       layout
-      whileHover={{ y: -6 }}
-      className={`glass rounded-2xl p-6 neon-border card-3d relative overflow-hidden ${
-        pkg.badge === "popular" ? "ring-2 ring-primary/50" : ""
+      style={{ rotateX: tilt.x, rotateY: tilt.y, transformStyle: "preserve-3d" }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      whileHover={{ scale: 1.03, y: -8 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className={`relative rounded-2xl p-6 glass neon-border flex flex-col overflow-hidden cursor-default ${
+        isRequested
+          ? "ring-2 ring-primary/60 shadow-[0_0_30px_hsl(var(--neon-purple)/0.25)]"
+          : ""
       }`}
     >
-      {pkg.badge && (
-        <div className="absolute top-4 end-4">
-          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold gradient-purple text-primary-foreground">
-            {pkg.badge === "popular" ? <Star className="w-3 h-3" /> : <Zap className="w-3 h-3" />}
-            {t(pkg.badge === "popular" ? "packages.popular" : "packages.bestValue")}
+      {/* Ambient gradient top */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+
+      {/* Most Requested badge */}
+      {isRequested && (
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="absolute top-4 end-4 z-10"
+        >
+          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold gradient-purple text-primary-foreground neon-glow shadow-lg">
+            <Star className="w-3 h-3 fill-current" />
+            {t("packages.requested")}
           </span>
-        </div>
+        </motion.div>
       )}
 
-      <h4 className="text-lg font-bold text-foreground mb-2">{pkg.name[l]}</h4>
-      <div className="flex items-baseline gap-1 mb-1">
-        <span className="text-3xl font-bold gradient-text">${pkg.price}</span>
-      </div>
-      <p className="text-sm text-muted-foreground mb-4">
-        {t("packages.from")} · {pkg.delivery} {t("packages.delivery")}
-      </p>
+      {/* Package name */}
+      <h4 className={`text-lg font-bold text-foreground mb-3 ${isRequested ? "pe-24" : ""}`}>
+        {t(pkg.nameKey)}
+      </h4>
 
-      <ul className="space-y-2 mb-4">
+      {/* Pricing */}
+      <div className="mb-4">
+        <div className="flex items-baseline gap-2 flex-wrap">
+          <span className="text-xs text-muted-foreground">{t("packages.from")}</span>
+          <span className="text-3xl font-black gradient-text">${pkg.priceUSD}</span>
+        </div>
+        <p className="text-xs text-muted-foreground mt-0.5">
+          {pkg.priceYER.toLocaleString()} {t("packages.yer")}
+        </p>
+      </div>
+
+      {/* Features */}
+      <ul className="space-y-2 mb-4 flex-1">
         {pkg.features.map((f, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-secondary-foreground">
-            <Check className="w-4 h-4 text-primary shrink-0" />
-            {f[l]}
+          <li key={i} className="flex items-start gap-2 text-sm text-secondary-foreground">
+            <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+            <span>{f[lang]}</span>
           </li>
         ))}
       </ul>
@@ -246,96 +313,113 @@ const PackageCard = ({
         className="w-full flex items-center justify-center gap-1 py-2 text-xs text-muted-foreground hover:text-primary transition-colors mb-3"
       >
         {t(isExpanded ? "packages.less" : "packages.more")}
-        <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.2 }}>
+        <motion.span animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.25 }}>
           <ChevronDown className="w-3 h-3" />
-        </motion.div>
+        </motion.span>
       </button>
 
-      {/* Expanded details */}
+      {/* Expanded detail panel */}
       <AnimatePresence>
         {isExpanded && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden mb-4"
           >
-            <div className="pt-3 border-t border-border/30 space-y-2">
-              {pkg.details.map((d, i) => (
-                <motion.li
-                  key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-2 text-sm text-secondary-foreground list-none"
-                >
-                  <Zap className="w-3 h-3 text-accent shrink-0" />
-                  {d[l]}
-                </motion.li>
-              ))}
+            <div className="pt-3 border-t border-border/30">
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {t(`${pkg.nameKey}.desc`)}
+              </p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <button
+      {/* WhatsApp CTA */}
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.97 }}
         onClick={sendWhatsApp}
-        className="w-full py-3 rounded-xl gradient-purple text-primary-foreground font-medium flex items-center justify-center gap-2 neon-glow hover:shadow-[0_0_30px_hsl(265_90%_60%/0.3)] transition-shadow text-sm"
+        className="w-full py-3 rounded-xl gradient-purple text-primary-foreground font-semibold flex items-center justify-center gap-2 neon-glow hover:shadow-[0_0_40px_hsl(var(--neon-purple)/0.4)] transition-shadow text-sm"
       >
         <MessageCircle className="w-4 h-4" />
         {t("packages.cta")}
-      </button>
+      </motion.button>
     </motion.div>
   );
 };
 
+// ─── MAIN SECTION ─────────────────────────────────────────────────────────────
+
 const PackagesSection = () => {
   const { t, lang } = useLanguage();
-  const [activePath, setActivePath] = useState("build");
+  const isRTL = lang === "ar";
+  const [activeTab, setActiveTab] = useState("content");
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
 
-  const currentPath = paths.find((p) => p.key === activePath)!;
+  const currentPath = paths.find((p) => p.key === activeTab)!;
 
   return (
-    <section id="packages" className="section-padding relative">
+    <section id="packages" className="section-padding relative overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0 grid-bg opacity-20" />
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="absolute top-1/3 start-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 end-1/4 w-64 h-64 rounded-full bg-accent/5 blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
         <ScrollReveal>
-          <h2 className="text-3xl md:text-5xl font-bold text-center gradient-text mb-4">
-            {t("packages.title")}
-          </h2>
-          <p className="text-center text-muted-foreground mb-12 text-sm md:text-base">
-            {t("packages.hub.subtitle")}
-          </p>
+          <div className="text-center mb-14">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass neon-border text-xs font-semibold text-primary mb-4"
+            >
+              <Star className="w-3 h-3 fill-current" />
+              {t("packages.hub.label")}
+            </motion.span>
+            <h2 className="text-3xl md:text-5xl font-black gradient-text mb-4">
+              {t("packages.title")}
+            </h2>
+            <p className="text-muted-foreground text-sm md:text-base max-w-xl mx-auto">
+              {t("packages.hub.subtitle")}
+            </p>
+          </div>
         </ScrollReveal>
 
-        {/* Path selector */}
+        {/* Tab selector */}
         <ScrollReveal delay={0.1}>
-          <div className="flex justify-center gap-3 md:gap-4 mb-12">
+          <div
+            className={`flex flex-wrap justify-center gap-2 md:gap-3 mb-14 ${isRTL ? "flex-row-reverse" : ""}`}
+          >
             {paths.map((path) => {
               const Icon = path.icon;
-              const isActive = activePath === path.key;
+              const isActive = activeTab === path.key;
               return (
                 <motion.button
                   key={path.key}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => { setActivePath(path.key); setExpandedCard(null); }}
-                  className={`relative px-5 py-3 md:px-8 md:py-4 rounded-2xl font-bold text-sm md:text-lg transition-all duration-300 flex items-center gap-2 ${
+                  onClick={() => {
+                    setActiveTab(path.key);
+                    setExpandedCard(null);
+                  }}
+                  className={`relative px-4 py-2.5 md:px-6 md:py-3 rounded-2xl font-semibold text-xs md:text-sm transition-all duration-300 flex items-center gap-2 ${
                     isActive
-                      ? `bg-gradient-to-r ${path.color} text-primary-foreground neon-glow`
-                      : "glass neon-border text-muted-foreground hover:text-foreground"
+                      ? "gradient-purple text-primary-foreground neon-glow shadow-lg"
+                      : "glass neon-border text-muted-foreground hover:text-foreground hover:border-primary/50"
                   }`}
-                  style={{ transformStyle: "preserve-3d", perspective: "600px" }}
                 >
-                  <Icon className="w-4 h-4 md:w-5 md:h-5" />
-                  {t(`hero.${path.key}`)}
+                  <Icon className="w-4 h-4 shrink-0" />
+                  {t(path.labelKey)}
                   {isActive && (
                     <motion.div
-                      layoutId="activePathIndicator"
-                      className="absolute inset-0 rounded-2xl bg-gradient-to-r opacity-0"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      layoutId="activeTab"
+                      className="absolute inset-0 rounded-2xl ring-1 ring-primary/30"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                     />
                   )}
                 </motion.button>
@@ -344,29 +428,25 @@ const PackagesSection = () => {
           </div>
         </ScrollReveal>
 
-        {/* Cards grid */}
+        {/* Cards */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={activePath}
-            initial={{ opacity: 0, y: 20 }}
+            key={activeTab}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-            className={`grid gap-4 ${
-              currentPath.packages.length === 4
-                ? "sm:grid-cols-2 lg:grid-cols-4"
-                : "sm:grid-cols-2 lg:grid-cols-3"
-            }`}
+            exit={{ opacity: 0, y: -24 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {currentPath.packages.map((pkg, i) => (
-              <ScrollReveal key={`${activePath}-${i}`} delay={i * 0.08}>
+              <ScrollReveal key={`${activeTab}-${i}`} delay={i * 0.1}>
                 <PackageCard
                   pkg={pkg}
-                  lang={lang}
-                  isExpanded={expandedCard === `${activePath}-${i}`}
+                  lang={lang as LangKey}
+                  isExpanded={expandedCard === `${activeTab}-${i}`}
                   onToggle={() =>
                     setExpandedCard(
-                      expandedCard === `${activePath}-${i}` ? null : `${activePath}-${i}`
+                      expandedCard === `${activeTab}-${i}` ? null : `${activeTab}-${i}`
                     )
                   }
                 />
@@ -374,6 +454,13 @@ const PackagesSection = () => {
             ))}
           </motion.div>
         </AnimatePresence>
+
+        {/* Bottom note */}
+        <ScrollReveal delay={0.3}>
+          <p className="text-center text-xs text-muted-foreground mt-12">
+            {t("packages.note")}
+          </p>
+        </ScrollReveal>
       </div>
     </section>
   );
