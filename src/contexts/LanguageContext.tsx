@@ -160,17 +160,54 @@ const translations: Translations = {
 
   // Contact
   "contact.title": { ar: "تواصل معنا", en: "Contact Us", zh: "联系我们" },
-  "contact.briefing.subtitle": { ar: "غرفة الإحاطة الرقمية — أخبرنا عن مشروعك", en: "Digital Briefing Room — Tell us about your project", zh: "数字简报室 — 告诉我们您的项目" },
-  "contact.name": { ar: "الاسم", en: "Name", zh: "姓名" },
-  "contact.email": { ar: "البريد الإلكتروني", en: "Email", zh: "电子邮件" },
+  "contact.briefing.subtitle": { ar: "ابدأ مشروعك الرقمي معنا اليوم", en: "Start Your Digital Project With Us Today", zh: "今天就与我们开始您的数字项目" },
+  "contact.name": { ar: "الاسم الكامل", en: "Full Name", zh: "全名" },
+  "contact.name.placeholder": { ar: "أدخل اسمك الكامل...", en: "Enter your full name...", zh: "输入您的全名..." },
+  "contact.country": { ar: "الدولة", en: "Country", zh: "国家" },
+  "contact.country.placeholder": { ar: "دولتك...", en: "Your country...", zh: "您的国家..." },
+  "contact.services": { ar: "نوع الخدمة (يمكن اختيار أكثر من خدمة)", en: "Service Type (multi-select)", zh: "服务类型（可多选）" },
+  "contact.budget": { ar: "الميزانية التقديرية", en: "Estimated Budget", zh: "预算" },
+  "contact.file": { ar: "رفع ملف (اختياري)", en: "Upload File (optional)", zh: "上传文件（可选）" },
+  "contact.file.hint": { ar: "PDF، صورة، أو أي مرجع للمشروع", en: "PDF, image, or any project reference", zh: "PDF、图片或任何项目参考文件" },
+  "contact.privacy": { ar: "أوافق على سياسة الخصوصية", en: "I agree to the Privacy Policy", zh: "我同意隐私政策" },
+  "contact.privacy.required": { ar: "يجب الموافقة على سياسة الخصوصية", en: "You must agree to the Privacy Policy", zh: "您必须同意隐私政策" },
   "contact.message": { ar: "أخبرنا عن رؤيتك...", en: "Tell us about your vision...", zh: "告诉我们您的愿景..." },
   "contact.send": { ar: "إرسال", en: "Send", zh: "发送" },
   "contact.whatsapp": { ar: "أو تواصل عبر واتساب", en: "Or contact via WhatsApp", zh: "或通过WhatsApp联系" },
   "contact.next": { ar: "التالي", en: "Next", zh: "下一步" },
   "contact.back": { ar: "رجوع", en: "Back", zh: "返回" },
-  "contact.submit": { ar: "إرسال عبر واتساب", en: "Send via WhatsApp", zh: "通过WhatsApp发送" },
+  "contact.submit": { ar: "ابدأ مشروعي الآن", en: "Start My Project Now", zh: "立即开始项目" },
   "contact.success.title": { ar: "تم الإرسال بنجاح!", en: "Successfully Sent!", zh: "发送成功！" },
   "contact.success.message": { ar: "سيتم فتح واتساب لإرسال رسالتك...", en: "WhatsApp will open to send your message...", zh: "WhatsApp将打开以发送您的消息..." },
+  "contact.select.services": { ar: "اختر الخدمات المطلوبة", en: "Select required services", zh: "选择所需服务" },
+  "contact.required.services": { ar: "يرجى اختيار خدمة واحدة على الأقل", en: "Please select at least one service", zh: "请至少选择一项服务" },
+
+  // Contact services
+  "contact.service.web": { ar: "تصميم مواقع", en: "Website Design", zh: "网站设计" },
+  "contact.service.dynamic": { ar: "مواقع ديناميكية", en: "Dynamic Websites", zh: "动态网站" },
+  "contact.service.ecommerce": { ar: "متاجر إلكترونية", en: "E-Commerce Stores", zh: "电子商务" },
+  "contact.service.ads": { ar: "إدارة الإعلانات المدفوعة", en: "Paid Ads Management", zh: "付费广告管理" },
+  "contact.service.content": { ar: "تصميم المحتوى", en: "Content Design", zh: "内容设计" },
+  "contact.service.branding": { ar: "هوية بصرية / براندينج", en: "Visual Identity / Branding", zh: "视觉识别 / 品牌设计" },
+  "contact.service.social": { ar: "إدارة التواصل الاجتماعي", en: "Social Media Management", zh: "社交媒体管理" },
+  "contact.service.seo": { ar: "تحسين محركات البحث (SEO)", en: "SEO", zh: "搜索引擎优化" },
+  "contact.service.video": { ar: "محتوى فيديو / مونتاج", en: "Video Content / Editing", zh: "视频内容 / 剪辑" },
+  "contact.service.mixed": { ar: "باقة مدمجة (تصميم + إعلانات)", en: "Mixed Package (Design + Ads)", zh: "混合套餐（设计 + 广告）" },
+
+  // Contact budget options
+  "contact.budget.under100": { ar: "أقل من 100$", en: "Under $100", zh: "低于$100" },
+  "contact.budget.100_300": { ar: "100$ - 300$", en: "$100 - $300", zh: "$100 - $300" },
+  "contact.budget.300_500": { ar: "300$ - 500$", en: "$300 - $500", zh: "$300 - $500" },
+  "contact.budget.500_1000": { ar: "500$ - 1000$", en: "$500 - $1,000", zh: "$500 - $1,000" },
+  "contact.budget.1000plus": { ar: "أكثر من 1000$", en: "$1,000+", zh: "$1,000+" },
+
+  // Contact WhatsApp message
+  "contact.wa.hello": { ar: "مرحباً، أنا", en: "Hello, I am", zh: "你好，我是" },
+  "contact.wa.from": { ar: "من", en: "from", zh: "来自" },
+  "contact.wa.interested": { ar: "أنا مهتم بالخدمات التالية:", en: "I am interested in the following services:", zh: "我对以下服务感兴趣：" },
+  "contact.wa.budget": { ar: "الميزانية التقديرية:", en: "Estimated budget:", zh: "预估预算：" },
+  "contact.wa.start": { ar: "أرجو التواصل لبدء مشروعي.", en: "Please contact me to start my project.", zh: "请联系我开始我的项目。" },
+  "contact.wa.file": { ar: "ملف مرفق:", en: "Attached file:", zh: "附件文件：" },
 
   // Footer
   "footer.services": { ar: "الخدمات", en: "Services", zh: "服务" },
