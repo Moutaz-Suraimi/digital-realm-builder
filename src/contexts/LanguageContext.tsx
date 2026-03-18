@@ -20,35 +20,27 @@ const translations: Translations = {
   "nav.blog": { ar: "المدونة", en: "Blog", zh: "博客" },
 
   // Hero
-  "hero.build": { ar: "ابنِ", en: "Build", zh: "建立" },
-  "hero.sell": { ar: "بِع", en: "Sell", zh: "销售" },
-  "hero.grow": { ar: "نمُو", en: "Grow", zh: "成长" },
-  "hero.subtitle": {
-    ar: "نحن لا نبيع خدمات — نحن نبني ونبيع وننمي الأعمال الرقمية",
-    en: "We don't sell services — We build, sell & grow digital businesses",
-    zh: "我们不只是卖服务——我们建立、销售并发展数字业务",
+  "hero.headline": {
+    ar: "لا تبنِ موقعاً فحسب — ابنِ نظاماً يجلب لك العملاء",
+    en: "Don't Just Build a Website — Build a System That Brings You Clients",
+    zh: "不只是建网站——构建一个为你带来客户的系统",
+  },
+  "hero.subheadline": {
+    ar: "نبتكر أنظمة رقمية تجذب وتحوّل وتنمّي أعمالك",
+    en: "We create digital systems that attract, convert, and grow your business",
+    zh: "我们打造吸引、转化并发展您业务的数字系统",
+  },
+  "hero.cta.consult": {
+    ar: "احجز استشارة مجانية",
+    en: "Book Free Consultation",
+    zh: "预约免费咨询",
+  },
+  "hero.cta.whatsapp": {
+    ar: "تواصل عبر واتساب",
+    en: "Chat on WhatsApp",
+    zh: "在WhatsApp上聊天",
   },
   "hero.cta": { ar: "ابدأ مشروعك الآن", en: "Start Your Project", zh: "立即开始您的项目" },
-  "hero.ai.message": {
-    ar: "أنا الذكاء الرقمي لصُرَيمي…\nأخبرني، ماذا تريد أن تفعل اليوم؟",
-    en: "I am Surimi's digital intelligence…\nTell me, what do you want to do today?",
-    zh: "我是Surimi的数字智能…\n告诉我，你今天想做什么？",
-  },
-  "hero.ai.build": {
-    ar: "ممتاز! سأريك كيف نبني مشاريع رقمية مذهلة ←",
-    en: "Excellent! Let me show you how we build stunning digital projects →",
-    zh: "太棒了！让我展示我们如何建立惊人的数字项目 →",
-  },
-  "hero.ai.sell": {
-    ar: "رائع! اكتشف باقاتنا التي تحقق المبيعات ←",
-    en: "Great choice! Discover our packages that drive sales →",
-    zh: "好选择！了解我们推动销售的套餐 →",
-  },
-  "hero.ai.grow": {
-    ar: "ذكي! شاهد كيف ننمي الأعمال الرقمية ←",
-    en: "Smart! See how we grow digital businesses →",
-    zh: "聪明！看看我们如何发展数字业务 →",
-  },
 
   // About
   "about.title": { ar: "من نحن", en: "About Us", zh: "关于我们" },
