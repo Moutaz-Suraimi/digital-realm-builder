@@ -1,16 +1,60 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
-import { useState, useRef, useMemo, Suspense } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Float, MeshDistortMaterial, MeshWobbleMaterial, Stars } from "@react-three/drei";
+import { useState, useRef, useMemo, Suspense, lazy, useEffect } from "react";
 import * as THREE from "three";
+import { Bot } from "lucide-react";
 
 const WHATSAPP = "https://wa.me/967780930635";
 
+/* ─── WebGL support detection ─── */
+const detectWebGL = (): boolean => {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+    );
+  } catch {
+    return false;
+  }
+};
+
+/* ─── Detect mobile for reduced particles ─── */
+const isMobileDevice = () =>
+  typeof window !== "undefined" && window.innerWidth < 768;
+
+/* ─── Detect light mode ─── */
+const useIsLightMode = () => {
+  const [light, setLight] = useState(
+    () => document.documentElement.classList.contains("light")
+  );
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setLight(document.documentElement.classList.contains("light"));
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
+  }, []);
+  return light;
+};
+
+/* ─── Lazy-loaded 3D Canvas ─── */
+const LazyCanvas = lazy(() =>
+  import("@react-three/fiber").then((mod) => ({ default: mod.Canvas }))
+);
+
+/* ─── R3F hooks / helpers (imported lazily inside 3D components) ─── */
+import { useFrame, useThree } from "@react-three/fiber";
+import { Float, MeshDistortMaterial, MeshWobbleMaterial, Stars } from "@react-three/drei";
+
 /* ─── Galaxy Star Field ─── */
-const GalaxyStars = () => {
+const GalaxyStars = ({ isLight }: { isLight: boolean }) => {
   const starsRef = useRef<THREE.Points>(null!);
-  const count = 800;
+  const mobile = isMobileDevice();
+  const count = mobile ? 300 : 800;
 
   const [positions, sizes] = useMemo(() => {
     const pos = new Float32Array(count * 3);
@@ -25,7 +69,7 @@ const GalaxyStars = () => {
       sz[i] = Math.random() * 0.08 + 0.02;
     }
     return [pos, sz];
-  }, []);
+  }, [count]);
 
   useFrame((_, delta) => {
     if (starsRef.current) {
@@ -42,9 +86,9 @@ const GalaxyStars = () => {
       </bufferGeometry>
       <pointsMaterial
         size={0.06}
-        color="#c4a0ff"
+        color={isLight ? "#8b5cf6" : "#c4a0ff"}
         transparent
-        opacity={0.8}
+        opacity={isLight ? 0.5 : 0.8}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
         depthWrite={false}
@@ -54,18 +98,19 @@ const GalaxyStars = () => {
 };
 
 /* ─── Swirling Nebula Particles ─── */
-const NebulaParticles = ({ count = 300 }: { count?: number }) => {
+const NebulaParticles = ({ isLight }: { isLight: boolean }) => {
   const ref = useRef<THREE.Points>(null!);
+  const mobile = isMobileDevice();
+  const count = mobile ? 120 : 350;
 
   const [positions, colors] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const col = new Float32Array(count * 3);
-    const purpleDark = new THREE.Color("#3a0f7a");
-    const purpleBright = new THREE.Color("#7B2FF7");
-    const purpleLight = new THREE.Color("#a855f7");
+    const purpleDark = new THREE.Color(isLight ? "#c4b5fd" : "#3a0f7a");
+    const purpleBright = new THREE.Color(isLight ? "#8b5cf6" : "#7B2FF7");
+    const purpleLight = new THREE.Color(isLight ? "#a78bfa" : "#a855f7");
 
     for (let i = 0; i < count; i++) {
-      // Spiral galaxy distribution
       const arm = Math.floor(Math.random() * 3);
       const armAngle = (arm / 3) * Math.PI * 2;
       const dist = Math.random() * 8 + 1;
@@ -76,13 +121,18 @@ const NebulaParticles = ({ count = 300 }: { count?: number }) => {
       pos[i * 3 + 1] = (Math.random() - 0.5) * 1.5;
       pos[i * 3 + 2] = Math.sin(spiral) * dist + spread - 5;
 
-      const c = Math.random() > 0.6 ? purpleBright : Math.random() > 0.4 ? purpleLight : purpleDark;
+      const c =
+        Math.random() > 0.6
+          ? purpleBright
+          : Math.random() > 0.4
+          ? purpleLight
+          : purpleDark;
       col[i * 3] = c.r;
       col[i * 3 + 1] = c.g;
       col[i * 3 + 2] = c.b;
     }
     return [pos, col];
-  }, [count]);
+  }, [count, isLight]);
 
   useFrame((state) => {
     if (!ref.current) return;
@@ -100,7 +150,7 @@ const NebulaParticles = ({ count = 300 }: { count?: number }) => {
         size={0.12}
         vertexColors
         transparent
-        opacity={0.5}
+        opacity={isLight ? 0.35 : 0.5}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
         depthWrite={false}
@@ -114,10 +164,12 @@ const Asteroid = ({
   position,
   scale = 1,
   shape,
+  isLight,
 }: {
   position: [number, number, number];
   scale?: number;
   shape: "icosahedron" | "octahedron" | "dodecahedron" | "torus";
+  isLight: boolean;
 }) => {
   const meshRef = useRef<THREE.Mesh>(null!);
 
@@ -126,15 +178,20 @@ const Asteroid = ({
     const t = state.clock.elapsedTime;
     meshRef.current.rotation.x = t * 0.15 + position[0];
     meshRef.current.rotation.z = t * 0.1 + position[1];
-    meshRef.current.position.y = position[1] + Math.sin(t * 0.5 + position[0]) * 0.3;
+    meshRef.current.position.y =
+      position[1] + Math.sin(t * 0.5 + position[0]) * 0.3;
   });
 
   const geo = useMemo(() => {
     switch (shape) {
-      case "torus": return <torusGeometry args={[1, 0.35, 16, 32]} />;
-      case "icosahedron": return <icosahedronGeometry args={[1, 0]} />;
-      case "octahedron": return <octahedronGeometry args={[1, 0]} />;
-      case "dodecahedron": return <dodecahedronGeometry args={[1.1, 0]} />;
+      case "torus":
+        return <torusGeometry args={[1, 0.35, 16, 32]} />;
+      case "icosahedron":
+        return <icosahedronGeometry args={[1, 0]} />;
+      case "octahedron":
+        return <octahedronGeometry args={[1, 0]} />;
+      case "dodecahedron":
+        return <dodecahedronGeometry args={[1.1, 0]} />;
     }
   }, [shape]);
 
@@ -143,11 +200,11 @@ const Asteroid = ({
       <mesh ref={meshRef} position={position} scale={scale}>
         {geo}
         <MeshDistortMaterial
-          color="#7B2FF7"
-          emissive="#4a0e8f"
-          emissiveIntensity={0.3}
+          color={isLight ? "#8b5cf6" : "#7B2FF7"}
+          emissive={isLight ? "#7c3aed" : "#4a0e8f"}
+          emissiveIntensity={isLight ? 0.15 : 0.3}
           transparent
-          opacity={0.12}
+          opacity={isLight ? 0.18 : 0.12}
           wireframe
           distort={0.25}
           speed={1.5}
@@ -158,7 +215,7 @@ const Asteroid = ({
 };
 
 /* ─── Central Nebula Core ─── */
-const NebulaCore = () => {
+const NebulaCore = ({ isLight }: { isLight: boolean }) => {
   const ref = useRef<THREE.Mesh>(null!);
   const ringRef = useRef<THREE.Mesh>(null!);
 
@@ -175,33 +232,44 @@ const NebulaCore = () => {
 
   return (
     <Float speed={1.5} floatIntensity={0.4}>
-      {/* Outer glow sphere */}
       <mesh ref={ref} position={[0, 0.2, -2]}>
         <sphereGeometry args={[1.2, 64, 64]} />
         <MeshWobbleMaterial
-          color="#7B2FF7"
-          emissive="#7B2FF7"
-          emissiveIntensity={0.5}
+          color={isLight ? "#a78bfa" : "#7B2FF7"}
+          emissive={isLight ? "#7c3aed" : "#7B2FF7"}
+          emissiveIntensity={isLight ? 0.3 : 0.5}
           transparent
-          opacity={0.12}
+          opacity={isLight ? 0.08 : 0.12}
           factor={0.3}
           speed={1}
         />
       </mesh>
-      {/* Inner core */}
       <mesh position={[0, 0.2, -2]}>
         <sphereGeometry args={[0.4, 32, 32]} />
-        <meshBasicMaterial color="#9b4dff" transparent opacity={0.4} />
+        <meshBasicMaterial
+          color={isLight ? "#8b5cf6" : "#9b4dff"}
+          transparent
+          opacity={isLight ? 0.25 : 0.4}
+        />
       </mesh>
-      {/* Orbital ring */}
       <mesh ref={ringRef} position={[0, 0.2, -2]}>
         <torusGeometry args={[1.8, 0.015, 16, 100]} />
-        <meshBasicMaterial color="#7B2FF7" transparent opacity={0.3} />
+        <meshBasicMaterial
+          color={isLight ? "#a78bfa" : "#7B2FF7"}
+          transparent
+          opacity={isLight ? 0.2 : 0.3}
+        />
       </mesh>
-      {/* Second ring */}
-      <mesh position={[0, 0.2, -2]} rotation={[Math.PI / 3, Math.PI / 4, 0]}>
+      <mesh
+        position={[0, 0.2, -2]}
+        rotation={[Math.PI / 3, Math.PI / 4, 0]}
+      >
         <torusGeometry args={[2.2, 0.01, 16, 100]} />
-        <meshBasicMaterial color="#a855f7" transparent opacity={0.15} />
+        <meshBasicMaterial
+          color={isLight ? "#c4b5fd" : "#a855f7"}
+          transparent
+          opacity={isLight ? 0.1 : 0.15}
+        />
       </mesh>
     </Float>
   );
@@ -213,8 +281,16 @@ const MouseCamera = () => {
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, state.pointer.x * 0.6, 0.015);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, state.pointer.y * 0.4 + 0.3, 0.015);
+    camera.position.x = THREE.MathUtils.lerp(
+      camera.position.x,
+      state.pointer.x * 0.6,
+      0.015
+    );
+    camera.position.y = THREE.MathUtils.lerp(
+      camera.position.y,
+      state.pointer.y * 0.4 + 0.3,
+      0.015
+    );
     camera.position.z = 6 + Math.sin(t * 0.1) * 0.2;
     camera.lookAt(0, 0, -2);
   });
@@ -223,39 +299,97 @@ const MouseCamera = () => {
 };
 
 /* ─── 3D Galaxy Scene ─── */
-const GalaxyScene = () => (
-  <>
-    <ambientLight intensity={0.08} />
-    <pointLight position={[5, 5, 5]} intensity={0.6} color="#7B2FF7" />
-    <pointLight position={[-5, -3, 3]} intensity={0.3} color="#a855f7" />
-    <pointLight position={[0, 4, -5]} intensity={0.4} color="#7B2FF7" />
-    <pointLight position={[3, -2, -4]} intensity={0.2} color="#6320c9" />
+const GalaxyScene = ({ isLight }: { isLight: boolean }) => {
+  const mobile = isMobileDevice();
+  return (
+    <>
+      <ambientLight intensity={isLight ? 0.25 : 0.08} />
+      <pointLight
+        position={[5, 5, 5]}
+        intensity={isLight ? 0.4 : 0.6}
+        color={isLight ? "#8b5cf6" : "#7B2FF7"}
+      />
+      <pointLight
+        position={[-5, -3, 3]}
+        intensity={isLight ? 0.2 : 0.3}
+        color={isLight ? "#a78bfa" : "#a855f7"}
+      />
+      <pointLight
+        position={[0, 4, -5]}
+        intensity={isLight ? 0.3 : 0.4}
+        color={isLight ? "#8b5cf6" : "#7B2FF7"}
+      />
+      <pointLight
+        position={[3, -2, -4]}
+        intensity={0.2}
+        color={isLight ? "#7c3aed" : "#6320c9"}
+      />
 
-    <MouseCamera />
+      <MouseCamera />
 
-    {/* Built-in drei Stars for background depth */}
-    <Stars radius={30} depth={60} count={2000} factor={3} saturation={0.8} fade speed={0.5} />
+      <Stars
+        radius={30}
+        depth={60}
+        count={mobile ? 800 : 2000}
+        factor={3}
+        saturation={isLight ? 0.4 : 0.8}
+        fade
+        speed={0.5}
+      />
 
-    {/* Custom galaxy stars */}
-    <GalaxyStars />
+      <GalaxyStars isLight={isLight} />
+      <NebulaParticles isLight={isLight} />
+      <NebulaCore isLight={isLight} />
 
-    {/* Spiral nebula particles */}
-    <NebulaParticles count={350} />
+      {/* Floating asteroids — fewer on mobile */}
+      <Asteroid position={[-4, 2, -6]} shape="icosahedron" scale={0.6} isLight={isLight} />
+      <Asteroid position={[5, -1, -8]} shape="dodecahedron" scale={0.5} isLight={isLight} />
+      <Asteroid position={[-3, -2.5, -4]} shape="octahedron" scale={0.4} isLight={isLight} />
+      <Asteroid position={[4, 3, -10]} shape="torus" scale={0.7} isLight={isLight} />
+      {!mobile && (
+        <>
+          <Asteroid position={[-6, 0, -7]} shape="dodecahedron" scale={0.35} isLight={isLight} />
+          <Asteroid position={[2, -3, -5]} shape="icosahedron" scale={0.3} isLight={isLight} />
+          <Asteroid position={[0, 4, -9]} shape="octahedron" scale={0.45} isLight={isLight} />
+        </>
+      )}
 
-    {/* Central nebula core */}
-    <NebulaCore />
+      <fog
+        attach="fog"
+        args={[isLight ? "#ede9fe" : "#0B0B0B", 6, 30]}
+      />
+    </>
+  );
+};
 
-    {/* Floating asteroids / shapes */}
-    <Asteroid position={[-4, 2, -6]} shape="icosahedron" scale={0.6} />
-    <Asteroid position={[5, -1, -8]} shape="dodecahedron" scale={0.5} />
-    <Asteroid position={[-3, -2.5, -4]} shape="octahedron" scale={0.4} />
-    <Asteroid position={[4, 3, -10]} shape="torus" scale={0.7} />
-    <Asteroid position={[-6, 0, -7]} shape="dodecahedron" scale={0.35} />
-    <Asteroid position={[2, -3, -5]} shape="icosahedron" scale={0.3} />
-    <Asteroid position={[0, 4, -9]} shape="octahedron" scale={0.45} />
-
-    <fog attach="fog" args={["#0B0B0B", 6, 30]} />
-  </>
+/* ─── Static fallback for no-WebGL ─── */
+const StaticFallback = ({ isLight }: { isLight: boolean }) => (
+  <div
+    className="absolute inset-0"
+    style={{
+      background: isLight
+        ? "radial-gradient(ellipse at 50% 40%, hsl(265 60% 92%) 0%, hsl(250 20% 96%) 60%, hsl(250 15% 94%) 100%)"
+        : "radial-gradient(ellipse at 50% 40%, #1a0533 0%, #0B0B0B 60%, #0B0B0B 100%)",
+    }}
+  >
+    {/* Static purple glow orbs */}
+    <div
+      className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-[120px] pointer-events-none"
+      style={{
+        background: isLight
+          ? "hsl(265 80% 75% / 0.25)"
+          : "hsl(265 90% 60% / 0.15)",
+      }}
+    />
+    <div
+      className="absolute bottom-1/3 right-1/4 w-[250px] h-[250px] rounded-full blur-[100px] pointer-events-none"
+      style={{
+        background: isLight
+          ? "hsl(275 70% 70% / 0.2)"
+          : "hsl(275 85% 55% / 0.1)",
+      }}
+    />
+  </div>
 );
 
 /* ─── Hero Component ─── */
@@ -263,6 +397,8 @@ const HeroSection = () => {
   const { t, lang } = useLanguage();
   const [hoverPrimary, setHoverPrimary] = useState(false);
   const [hoverSecondary, setHoverSecondary] = useState(false);
+  const [webglSupported] = useState(detectWebGL);
+  const isLight = useIsLightMode();
 
   const waMessage = encodeURIComponent(
     lang === "ar"
@@ -272,26 +408,59 @@ const HeroSection = () => {
       : "Hello, I want to book a free consultation with Surimi Media."
   );
 
+  const bgColor = isLight ? "#ede9fe" : "#0B0B0B";
+  const textColor = isLight ? "#1e1b4b" : "#fff";
+  const subTextColor = isLight ? "rgba(30,27,75,0.65)" : "rgba(255,255,255,0.65)";
+  const purpleGlow = isLight
+    ? "0 0 40px rgba(139, 92, 246, 0.3), 0 0 80px rgba(139, 92, 246, 0.1)"
+    : "0 0 40px rgba(123, 47, 247, 0.5), 0 0 80px rgba(123, 47, 247, 0.2), 0 2px 20px rgba(0,0,0,0.8)";
+  const subTextShadow = isLight
+    ? "0 0 30px rgba(139, 92, 246, 0.15)"
+    : "0 0 30px rgba(123, 47, 247, 0.25)";
+
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: "#0B0B0B" }}>
-      {/* Three.js Canvas */}
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style={{ background: bgColor }}
+    >
+      {/* 3D Canvas or static fallback */}
       <div className="absolute inset-0 z-0">
-        <Suspense fallback={null}>
-          <Canvas
-            camera={{ position: [0, 0.3, 6], fov: 50 }}
-            dpr={[1, 1.5]}
-            gl={{ antialias: true, alpha: true }}
-            style={{ background: "#0B0B0B" }}
-          >
-            <GalaxyScene />
-          </Canvas>
-        </Suspense>
+        {webglSupported ? (
+          <Suspense fallback={<StaticFallback isLight={isLight} />}>
+            <LazyCanvas
+              camera={{ position: [0, 0.3, 6], fov: 50 }}
+              dpr={[1, 1.5]}
+              gl={{ antialias: true, alpha: true }}
+              style={{ background: bgColor }}
+            >
+              <GalaxyScene isLight={isLight} />
+            </LazyCanvas>
+          </Suspense>
+        ) : (
+          <StaticFallback isLight={isLight} />
+        )}
       </div>
 
       {/* Purple nebula glow overlays */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-[180px] opacity-15 pointer-events-none" style={{ background: "#7B2FF7" }} />
-      <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] rounded-full blur-[150px] opacity-10 pointer-events-none" style={{ background: "#a855f7" }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[200px] opacity-[0.07] pointer-events-none" style={{ background: "#6320c9" }} />
+      <div
+        className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-[180px] pointer-events-none"
+        style={{
+          background: isLight ? "#a78bfa" : "#7B2FF7",
+          opacity: isLight ? 0.1 : 0.15,
+        }}
+      />
+      <div
+        className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] rounded-full blur-[150px] pointer-events-none"
+        style={{
+          background: isLight ? "#8b5cf6" : "#a855f7",
+          opacity: isLight ? 0.08 : 0.1,
+        }}
+      />
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[200px] opacity-[0.07] pointer-events-none"
+        style={{ background: isLight ? "#7c3aed" : "#6320c9" }}
+      />
 
       {/* Content overlay */}
       <div className="relative z-10 flex flex-col items-center max-w-5xl mx-auto px-6 py-20 text-center">
@@ -301,7 +470,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-xs md:text-sm tracking-[0.3em] uppercase mb-8"
-          style={{ color: "#a78bfa" }}
+          style={{ color: isLight ? "#7c3aed" : "#a78bfa" }}
         >
           الصُرَيْمي ميديا — Surimi Media
         </motion.p>
@@ -313,8 +482,8 @@ const HeroSection = () => {
           transition={{ delay: 0.5, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
           style={{
-            color: "#fff",
-            textShadow: "0 0 40px rgba(123, 47, 247, 0.5), 0 0 80px rgba(123, 47, 247, 0.2), 0 2px 20px rgba(0,0,0,0.8)",
+            color: textColor,
+            textShadow: purpleGlow,
             transformStyle: "preserve-3d",
           }}
         >
@@ -328,8 +497,8 @@ const HeroSection = () => {
           transition={{ delay: 0.8, duration: 0.7 }}
           className="text-base sm:text-lg md:text-xl max-w-3xl mb-10 leading-relaxed"
           style={{
-            color: "rgba(255,255,255,0.65)",
-            textShadow: "0 0 30px rgba(123, 47, 247, 0.25)",
+            color: subTextColor,
+            textShadow: subTextShadow,
           }}
         >
           {t("hero.subheadline")}
@@ -365,7 +534,10 @@ const HeroSection = () => {
             <span className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
               <motion.span
                 className="absolute inset-0"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)" }}
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)",
+                }}
                 initial={{ x: "-100%" }}
                 animate={hoverPrimary ? { x: "100%" } : { x: "-100%" }}
                 transition={{ duration: 0.6 }}
@@ -386,8 +558,10 @@ const HeroSection = () => {
             className="relative px-8 py-4 md:px-10 md:py-5 rounded-2xl font-bold text-base md:text-lg cursor-pointer overflow-hidden border-2"
             style={{
               borderColor: "#7B2FF7",
-              color: "#c4a0ff",
-              background: "rgba(123, 47, 247, 0.08)",
+              color: isLight ? "#6d28d9" : "#c4a0ff",
+              background: isLight
+                ? "rgba(139, 92, 246, 0.1)"
+                : "rgba(123, 47, 247, 0.08)",
               boxShadow: hoverSecondary
                 ? "0 0 30px rgba(123, 47, 247, 0.5), 0 0 60px rgba(123, 47, 247, 0.2), 0 8px 30px rgba(0,0,0,0.4)"
                 : "0 0 10px rgba(123, 47, 247, 0.2), 0 4px 20px rgba(0,0,0,0.3)",
@@ -398,7 +572,10 @@ const HeroSection = () => {
             <span className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
               <motion.span
                 className="absolute inset-0"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(123,47,247,0.15), transparent)" }}
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(123,47,247,0.15), transparent)",
+                }}
                 initial={{ x: "-100%" }}
                 animate={hoverSecondary ? { x: "100%" } : { x: "-100%" }}
                 transition={{ duration: 0.6 }}
@@ -430,6 +607,33 @@ const HeroSection = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Floating AI Assistant Button */}
+      <motion.button
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 1.5, type: "spring", stiffness: 200 }}
+        whileHover={{ scale: 1.15 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => {
+          // Trigger chatbot widget open
+          const chatBtn = document.querySelector<HTMLButtonElement>(
+            "[data-chatbot-trigger]"
+          );
+          if (chatBtn) chatBtn.click();
+        }}
+        className="fixed bottom-24 z-40 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer pulse-glow"
+        style={{
+          right: lang === "ar" ? "auto" : "1.5rem",
+          left: lang === "ar" ? "1.5rem" : "auto",
+          background: "linear-gradient(135deg, #7B2FF7, #9b59f7)",
+          boxShadow:
+            "0 0 25px rgba(123,47,247,0.6), 0 0 60px rgba(123,47,247,0.2)",
+        }}
+        aria-label="AI Assistant"
+      >
+        <Bot className="w-6 h-6 text-white" />
+      </motion.button>
     </section>
   );
 };
