@@ -150,7 +150,7 @@ const NebulaParticles = ({ isLight }: { isLight: boolean }) => {
         size={0.12}
         vertexColors
         transparent
-        opacity={isLight ? 0.35 : 0.5}
+        opacity={isLight ? 0.45 : 0.5}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
         depthWrite={false}
