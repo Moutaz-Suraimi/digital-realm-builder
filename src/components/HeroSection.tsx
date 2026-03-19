@@ -332,7 +332,7 @@ const GalaxyScene = ({ isLight }: { isLight: boolean }) => {
         depth={60}
         count={mobile ? 800 : 2000}
         factor={3}
-        saturation={isLight ? 0.4 : 0.8}
+        saturation={isLight ? 0.7 : 0.8}
         fade
         speed={0.5}
       />
