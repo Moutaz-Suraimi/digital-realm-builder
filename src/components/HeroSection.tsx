@@ -106,9 +106,9 @@ const NebulaParticles = ({ isLight }: { isLight: boolean }) => {
   const [positions, colors] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const col = new Float32Array(count * 3);
-    const purpleDark = new THREE.Color(isLight ? "#c4b5fd" : "#3a0f7a");
-    const purpleBright = new THREE.Color(isLight ? "#8b5cf6" : "#7B2FF7");
-    const purpleLight = new THREE.Color(isLight ? "#a78bfa" : "#a855f7");
+    const purpleDark = new THREE.Color(isLight ? "#5b1fd0" : "#3a0f7a");
+    const purpleBright = new THREE.Color(isLight ? "#7B2FF7" : "#7B2FF7");
+    const purpleLight = new THREE.Color(isLight ? "#9333ea" : "#a855f7");
 
     for (let i = 0; i < count; i++) {
       const arm = Math.floor(Math.random() * 3);
