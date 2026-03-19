@@ -470,7 +470,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-xs md:text-sm tracking-[0.3em] uppercase mb-8"
-          style={{ color: isLight ? "#7c3aed" : "#a78bfa" }}
+          style={{ color: isLight ? "#7B2FF7" : "#a78bfa" }}
         >
           الصُرَيْمي ميديا — Surimi Media
         </motion.p>
