@@ -558,9 +558,9 @@ const HeroSection = () => {
             className="relative px-8 py-4 md:px-10 md:py-5 rounded-2xl font-bold text-base md:text-lg cursor-pointer overflow-hidden border-2"
             style={{
               borderColor: "#7B2FF7",
-              color: isLight ? "#6d28d9" : "#c4a0ff",
+              color: isLight ? "#7B2FF7" : "#c4a0ff",
               background: isLight
-                ? "rgba(139, 92, 246, 0.1)"
+                ? "rgba(123, 47, 247, 0.12)"
                 : "rgba(123, 47, 247, 0.08)",
               boxShadow: hoverSecondary
                 ? "0 0 30px rgba(123, 47, 247, 0.5), 0 0 60px rgba(123, 47, 247, 0.2), 0 8px 30px rgba(0,0,0,0.4)"
