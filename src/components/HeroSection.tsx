@@ -408,14 +408,14 @@ const HeroSection = () => {
       : "Hello, I want to book a free consultation with Surimi Media."
   );
 
-  const bgColor = isLight ? "#ede9fe" : "#0B0B0B";
-  const textColor = isLight ? "#1e1b4b" : "#fff";
-  const subTextColor = isLight ? "rgba(30,27,75,0.65)" : "rgba(255,255,255,0.65)";
+  const bgColor = isLight ? "#f3f0ff" : "#0B0B0B";
+  const textColor = isLight ? "#3b0764" : "#fff";
+  const subTextColor = isLight ? "rgba(59,7,100,0.7)" : "rgba(255,255,255,0.65)";
   const purpleGlow = isLight
-    ? "0 0 40px rgba(139, 92, 246, 0.3), 0 0 80px rgba(139, 92, 246, 0.1)"
+    ? "0 0 40px rgba(123, 47, 247, 0.35), 0 0 80px rgba(123, 47, 247, 0.15)"
     : "0 0 40px rgba(123, 47, 247, 0.5), 0 0 80px rgba(123, 47, 247, 0.2), 0 2px 20px rgba(0,0,0,0.8)";
   const subTextShadow = isLight
-    ? "0 0 30px rgba(139, 92, 246, 0.15)"
+    ? "0 0 30px rgba(123, 47, 247, 0.2)"
     : "0 0 30px rgba(123, 47, 247, 0.25)";
 
   return (
