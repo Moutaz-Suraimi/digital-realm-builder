@@ -200,11 +200,11 @@ const Asteroid = ({
       <mesh ref={meshRef} position={position} scale={scale}>
         {geo}
         <MeshDistortMaterial
-          color={isLight ? "#8b5cf6" : "#7B2FF7"}
-          emissive={isLight ? "#7c3aed" : "#4a0e8f"}
-          emissiveIntensity={isLight ? 0.15 : 0.3}
+          color={isLight ? "#7B2FF7" : "#7B2FF7"}
+          emissive={isLight ? "#7B2FF7" : "#4a0e8f"}
+          emissiveIntensity={isLight ? 0.25 : 0.3}
           transparent
-          opacity={isLight ? 0.18 : 0.12}
+          opacity={isLight ? 0.22 : 0.12}
           wireframe
           distort={0.25}
           speed={1.5}
