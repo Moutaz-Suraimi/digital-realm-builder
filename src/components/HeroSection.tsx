@@ -356,7 +356,7 @@ const GalaxyScene = ({ isLight }: { isLight: boolean }) => {
 
       <fog
         attach="fog"
-        args={[isLight ? "#ede9fe" : "#0B0B0B", 6, 30]}
+        args={[isLight ? "#f3f0ff" : "#0B0B0B", 6, 30]}
       />
     </>
   );
