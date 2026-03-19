@@ -368,7 +368,7 @@ const StaticFallback = ({ isLight }: { isLight: boolean }) => (
     className="absolute inset-0"
     style={{
       background: isLight
-        ? "radial-gradient(ellipse at 50% 40%, hsl(265 60% 92%) 0%, hsl(250 20% 96%) 60%, hsl(250 15% 94%) 100%)"
+        ? "radial-gradient(ellipse at 50% 40%, hsl(265 80% 88%) 0%, hsl(265 30% 95%) 60%, hsl(265 20% 96%) 100%)"
         : "radial-gradient(ellipse at 50% 40%, #1a0533 0%, #0B0B0B 60%, #0B0B0B 100%)",
     }}
   >
@@ -377,7 +377,7 @@ const StaticFallback = ({ isLight }: { isLight: boolean }) => (
       className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-[120px] pointer-events-none"
       style={{
         background: isLight
-          ? "hsl(265 80% 75% / 0.25)"
+          ? "hsl(265 90% 55% / 0.3)"
           : "hsl(265 90% 60% / 0.15)",
       }}
     />
@@ -385,7 +385,7 @@ const StaticFallback = ({ isLight }: { isLight: boolean }) => (
       className="absolute bottom-1/3 right-1/4 w-[250px] h-[250px] rounded-full blur-[100px] pointer-events-none"
       style={{
         background: isLight
-          ? "hsl(275 70% 70% / 0.2)"
+          ? "hsl(265 85% 50% / 0.25)"
           : "hsl(275 85% 55% / 0.1)",
       }}
     />
