@@ -93,6 +93,7 @@ const ChatbotWidget = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={handleOpen}
+            data-chatbot-trigger
             className="fixed bottom-6 z-50 w-14 h-14 rounded-full gradient-purple text-primary-foreground flex items-center justify-center neon-glow-strong cursor-pointer"
             style={{ [isRtl ? "left" : "right"]: "1.5rem" }}
           >
