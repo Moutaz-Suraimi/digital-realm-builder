@@ -303,26 +303,26 @@ const GalaxyScene = ({ isLight }: { isLight: boolean }) => {
   const mobile = isMobileDevice();
   return (
     <>
-      <ambientLight intensity={isLight ? 0.25 : 0.08} />
+      <ambientLight intensity={isLight ? 0.15 : 0.08} />
       <pointLight
         position={[5, 5, 5]}
-        intensity={isLight ? 0.4 : 0.6}
-        color={isLight ? "#8b5cf6" : "#7B2FF7"}
+        intensity={isLight ? 0.5 : 0.6}
+        color="#7B2FF7"
       />
       <pointLight
         position={[-5, -3, 3]}
-        intensity={isLight ? 0.2 : 0.3}
-        color={isLight ? "#a78bfa" : "#a855f7"}
+        intensity={isLight ? 0.25 : 0.3}
+        color={isLight ? "#9333ea" : "#a855f7"}
       />
       <pointLight
         position={[0, 4, -5]}
-        intensity={isLight ? 0.3 : 0.4}
-        color={isLight ? "#8b5cf6" : "#7B2FF7"}
+        intensity={isLight ? 0.35 : 0.4}
+        color="#7B2FF7"
       />
       <pointLight
         position={[3, -2, -4]}
         intensity={0.2}
-        color={isLight ? "#7c3aed" : "#6320c9"}
+        color={isLight ? "#7B2FF7" : "#6320c9"}
       />
 
       <MouseCamera />
