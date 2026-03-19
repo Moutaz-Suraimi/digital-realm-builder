@@ -86,9 +86,9 @@ const GalaxyStars = ({ isLight }: { isLight: boolean }) => {
       </bufferGeometry>
       <pointsMaterial
         size={0.06}
-        color={isLight ? "#8b5cf6" : "#c4a0ff"}
+        color={isLight ? "#7B2FF7" : "#c4a0ff"}
         transparent
-        opacity={isLight ? 0.5 : 0.8}
+        opacity={isLight ? 0.6 : 0.8}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
         depthWrite={false}
@@ -106,9 +106,9 @@ const NebulaParticles = ({ isLight }: { isLight: boolean }) => {
   const [positions, colors] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const col = new Float32Array(count * 3);
-    const purpleDark = new THREE.Color(isLight ? "#c4b5fd" : "#3a0f7a");
-    const purpleBright = new THREE.Color(isLight ? "#8b5cf6" : "#7B2FF7");
-    const purpleLight = new THREE.Color(isLight ? "#a78bfa" : "#a855f7");
+    const purpleDark = new THREE.Color(isLight ? "#5b1fd0" : "#3a0f7a");
+    const purpleBright = new THREE.Color(isLight ? "#7B2FF7" : "#7B2FF7");
+    const purpleLight = new THREE.Color(isLight ? "#9333ea" : "#a855f7");
 
     for (let i = 0; i < count; i++) {
       const arm = Math.floor(Math.random() * 3);
@@ -150,7 +150,7 @@ const NebulaParticles = ({ isLight }: { isLight: boolean }) => {
         size={0.12}
         vertexColors
         transparent
-        opacity={isLight ? 0.35 : 0.5}
+        opacity={isLight ? 0.45 : 0.5}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
         depthWrite={false}
@@ -200,11 +200,11 @@ const Asteroid = ({
       <mesh ref={meshRef} position={position} scale={scale}>
         {geo}
         <MeshDistortMaterial
-          color={isLight ? "#8b5cf6" : "#7B2FF7"}
-          emissive={isLight ? "#7c3aed" : "#4a0e8f"}
-          emissiveIntensity={isLight ? 0.15 : 0.3}
+          color={isLight ? "#7B2FF7" : "#7B2FF7"}
+          emissive={isLight ? "#7B2FF7" : "#4a0e8f"}
+          emissiveIntensity={isLight ? 0.25 : 0.3}
           transparent
-          opacity={isLight ? 0.18 : 0.12}
+          opacity={isLight ? 0.22 : 0.12}
           wireframe
           distort={0.25}
           speed={1.5}
@@ -235,11 +235,11 @@ const NebulaCore = ({ isLight }: { isLight: boolean }) => {
       <mesh ref={ref} position={[0, 0.2, -2]}>
         <sphereGeometry args={[1.2, 64, 64]} />
         <MeshWobbleMaterial
-          color={isLight ? "#a78bfa" : "#7B2FF7"}
-          emissive={isLight ? "#7c3aed" : "#7B2FF7"}
-          emissiveIntensity={isLight ? 0.3 : 0.5}
+          color={isLight ? "#7B2FF7" : "#7B2FF7"}
+          emissive={isLight ? "#7B2FF7" : "#7B2FF7"}
+          emissiveIntensity={isLight ? 0.35 : 0.5}
           transparent
-          opacity={isLight ? 0.08 : 0.12}
+          opacity={isLight ? 0.1 : 0.12}
           factor={0.3}
           speed={1}
         />
@@ -247,17 +247,17 @@ const NebulaCore = ({ isLight }: { isLight: boolean }) => {
       <mesh position={[0, 0.2, -2]}>
         <sphereGeometry args={[0.4, 32, 32]} />
         <meshBasicMaterial
-          color={isLight ? "#8b5cf6" : "#9b4dff"}
+          color={isLight ? "#7B2FF7" : "#9b4dff"}
           transparent
-          opacity={isLight ? 0.25 : 0.4}
+          opacity={isLight ? 0.35 : 0.4}
         />
       </mesh>
       <mesh ref={ringRef} position={[0, 0.2, -2]}>
         <torusGeometry args={[1.8, 0.015, 16, 100]} />
         <meshBasicMaterial
-          color={isLight ? "#a78bfa" : "#7B2FF7"}
+          color={isLight ? "#7B2FF7" : "#7B2FF7"}
           transparent
-          opacity={isLight ? 0.2 : 0.3}
+          opacity={isLight ? 0.25 : 0.3}
         />
       </mesh>
       <mesh
@@ -266,9 +266,9 @@ const NebulaCore = ({ isLight }: { isLight: boolean }) => {
       >
         <torusGeometry args={[2.2, 0.01, 16, 100]} />
         <meshBasicMaterial
-          color={isLight ? "#c4b5fd" : "#a855f7"}
+          color={isLight ? "#9333ea" : "#a855f7"}
           transparent
-          opacity={isLight ? 0.1 : 0.15}
+          opacity={isLight ? 0.15 : 0.15}
         />
       </mesh>
     </Float>
@@ -303,26 +303,26 @@ const GalaxyScene = ({ isLight }: { isLight: boolean }) => {
   const mobile = isMobileDevice();
   return (
     <>
-      <ambientLight intensity={isLight ? 0.25 : 0.08} />
+      <ambientLight intensity={isLight ? 0.15 : 0.08} />
       <pointLight
         position={[5, 5, 5]}
-        intensity={isLight ? 0.4 : 0.6}
-        color={isLight ? "#8b5cf6" : "#7B2FF7"}
+        intensity={isLight ? 0.5 : 0.6}
+        color="#7B2FF7"
       />
       <pointLight
         position={[-5, -3, 3]}
-        intensity={isLight ? 0.2 : 0.3}
-        color={isLight ? "#a78bfa" : "#a855f7"}
+        intensity={isLight ? 0.25 : 0.3}
+        color={isLight ? "#9333ea" : "#a855f7"}
       />
       <pointLight
         position={[0, 4, -5]}
-        intensity={isLight ? 0.3 : 0.4}
-        color={isLight ? "#8b5cf6" : "#7B2FF7"}
+        intensity={isLight ? 0.35 : 0.4}
+        color="#7B2FF7"
       />
       <pointLight
         position={[3, -2, -4]}
         intensity={0.2}
-        color={isLight ? "#7c3aed" : "#6320c9"}
+        color={isLight ? "#7B2FF7" : "#6320c9"}
       />
 
       <MouseCamera />
@@ -332,7 +332,7 @@ const GalaxyScene = ({ isLight }: { isLight: boolean }) => {
         depth={60}
         count={mobile ? 800 : 2000}
         factor={3}
-        saturation={isLight ? 0.4 : 0.8}
+        saturation={isLight ? 0.7 : 0.8}
         fade
         speed={0.5}
       />
@@ -356,7 +356,7 @@ const GalaxyScene = ({ isLight }: { isLight: boolean }) => {
 
       <fog
         attach="fog"
-        args={[isLight ? "#ede9fe" : "#0B0B0B", 6, 30]}
+        args={[isLight ? "#f3f0ff" : "#0B0B0B", 6, 30]}
       />
     </>
   );
@@ -368,7 +368,7 @@ const StaticFallback = ({ isLight }: { isLight: boolean }) => (
     className="absolute inset-0"
     style={{
       background: isLight
-        ? "radial-gradient(ellipse at 50% 40%, hsl(265 60% 92%) 0%, hsl(250 20% 96%) 60%, hsl(250 15% 94%) 100%)"
+        ? "radial-gradient(ellipse at 50% 40%, hsl(265 80% 88%) 0%, hsl(265 30% 95%) 60%, hsl(265 20% 96%) 100%)"
         : "radial-gradient(ellipse at 50% 40%, #1a0533 0%, #0B0B0B 60%, #0B0B0B 100%)",
     }}
   >
@@ -377,7 +377,7 @@ const StaticFallback = ({ isLight }: { isLight: boolean }) => (
       className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-[120px] pointer-events-none"
       style={{
         background: isLight
-          ? "hsl(265 80% 75% / 0.25)"
+          ? "hsl(265 90% 55% / 0.3)"
           : "hsl(265 90% 60% / 0.15)",
       }}
     />
@@ -385,7 +385,7 @@ const StaticFallback = ({ isLight }: { isLight: boolean }) => (
       className="absolute bottom-1/3 right-1/4 w-[250px] h-[250px] rounded-full blur-[100px] pointer-events-none"
       style={{
         background: isLight
-          ? "hsl(275 70% 70% / 0.2)"
+          ? "hsl(265 85% 50% / 0.25)"
           : "hsl(275 85% 55% / 0.1)",
       }}
     />
@@ -408,14 +408,14 @@ const HeroSection = () => {
       : "Hello, I want to book a free consultation with Surimi Media."
   );
 
-  const bgColor = isLight ? "#ede9fe" : "#0B0B0B";
-  const textColor = isLight ? "#1e1b4b" : "#fff";
-  const subTextColor = isLight ? "rgba(30,27,75,0.65)" : "rgba(255,255,255,0.65)";
+  const bgColor = isLight ? "#f3f0ff" : "#0B0B0B";
+  const textColor = isLight ? "#3b0764" : "#fff";
+  const subTextColor = isLight ? "rgba(59,7,100,0.7)" : "rgba(255,255,255,0.65)";
   const purpleGlow = isLight
-    ? "0 0 40px rgba(139, 92, 246, 0.3), 0 0 80px rgba(139, 92, 246, 0.1)"
+    ? "0 0 40px rgba(123, 47, 247, 0.35), 0 0 80px rgba(123, 47, 247, 0.15)"
     : "0 0 40px rgba(123, 47, 247, 0.5), 0 0 80px rgba(123, 47, 247, 0.2), 0 2px 20px rgba(0,0,0,0.8)";
   const subTextShadow = isLight
-    ? "0 0 30px rgba(139, 92, 246, 0.15)"
+    ? "0 0 30px rgba(123, 47, 247, 0.2)"
     : "0 0 30px rgba(123, 47, 247, 0.25)";
 
   return (
@@ -446,20 +446,20 @@ const HeroSection = () => {
       <div
         className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-[180px] pointer-events-none"
         style={{
-          background: isLight ? "#a78bfa" : "#7B2FF7",
-          opacity: isLight ? 0.1 : 0.15,
+          background: "#7B2FF7",
+          opacity: isLight ? 0.15 : 0.15,
         }}
       />
       <div
         className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] rounded-full blur-[150px] pointer-events-none"
         style={{
-          background: isLight ? "#8b5cf6" : "#a855f7",
-          opacity: isLight ? 0.08 : 0.1,
+          background: isLight ? "#7B2FF7" : "#a855f7",
+          opacity: isLight ? 0.12 : 0.1,
         }}
       />
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[200px] opacity-[0.07] pointer-events-none"
-        style={{ background: isLight ? "#7c3aed" : "#6320c9" }}
+        style={{ background: isLight ? "#7B2FF7" : "#6320c9" }}
       />
 
       {/* Content overlay */}
@@ -470,7 +470,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-xs md:text-sm tracking-[0.3em] uppercase mb-8"
-          style={{ color: isLight ? "#7c3aed" : "#a78bfa" }}
+          style={{ color: isLight ? "#7B2FF7" : "#a78bfa" }}
         >
           الصُرَيْمي ميديا — Surimi Media
         </motion.p>
@@ -558,9 +558,9 @@ const HeroSection = () => {
             className="relative px-8 py-4 md:px-10 md:py-5 rounded-2xl font-bold text-base md:text-lg cursor-pointer overflow-hidden border-2"
             style={{
               borderColor: "#7B2FF7",
-              color: isLight ? "#6d28d9" : "#c4a0ff",
+              color: isLight ? "#7B2FF7" : "#c4a0ff",
               background: isLight
-                ? "rgba(139, 92, 246, 0.1)"
+                ? "rgba(123, 47, 247, 0.12)"
                 : "rgba(123, 47, 247, 0.08)",
               boxShadow: hoverSecondary
                 ? "0 0 30px rgba(123, 47, 247, 0.5), 0 0 60px rgba(123, 47, 247, 0.2), 0 8px 30px rgba(0,0,0,0.4)"
