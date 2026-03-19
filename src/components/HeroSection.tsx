@@ -446,20 +446,20 @@ const HeroSection = () => {
       <div
         className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-[180px] pointer-events-none"
         style={{
-          background: isLight ? "#a78bfa" : "#7B2FF7",
-          opacity: isLight ? 0.1 : 0.15,
+          background: "#7B2FF7",
+          opacity: isLight ? 0.15 : 0.15,
         }}
       />
       <div
         className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] rounded-full blur-[150px] pointer-events-none"
         style={{
-          background: isLight ? "#8b5cf6" : "#a855f7",
-          opacity: isLight ? 0.08 : 0.1,
+          background: isLight ? "#7B2FF7" : "#a855f7",
+          opacity: isLight ? 0.12 : 0.1,
         }}
       />
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[200px] opacity-[0.07] pointer-events-none"
-        style={{ background: isLight ? "#7c3aed" : "#6320c9" }}
+        style={{ background: isLight ? "#7B2FF7" : "#6320c9" }}
       />
 
       {/* Content overlay */}
