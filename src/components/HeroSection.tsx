@@ -235,11 +235,11 @@ const NebulaCore = ({ isLight }: { isLight: boolean }) => {
       <mesh ref={ref} position={[0, 0.2, -2]}>
         <sphereGeometry args={[1.2, 64, 64]} />
         <MeshWobbleMaterial
-          color={isLight ? "#a78bfa" : "#7B2FF7"}
-          emissive={isLight ? "#7c3aed" : "#7B2FF7"}
-          emissiveIntensity={isLight ? 0.3 : 0.5}
+          color={isLight ? "#7B2FF7" : "#7B2FF7"}
+          emissive={isLight ? "#7B2FF7" : "#7B2FF7"}
+          emissiveIntensity={isLight ? 0.35 : 0.5}
           transparent
-          opacity={isLight ? 0.08 : 0.12}
+          opacity={isLight ? 0.1 : 0.12}
           factor={0.3}
           speed={1}
         />
@@ -247,17 +247,17 @@ const NebulaCore = ({ isLight }: { isLight: boolean }) => {
       <mesh position={[0, 0.2, -2]}>
         <sphereGeometry args={[0.4, 32, 32]} />
         <meshBasicMaterial
-          color={isLight ? "#8b5cf6" : "#9b4dff"}
+          color={isLight ? "#7B2FF7" : "#9b4dff"}
           transparent
-          opacity={isLight ? 0.25 : 0.4}
+          opacity={isLight ? 0.35 : 0.4}
         />
       </mesh>
       <mesh ref={ringRef} position={[0, 0.2, -2]}>
         <torusGeometry args={[1.8, 0.015, 16, 100]} />
         <meshBasicMaterial
-          color={isLight ? "#a78bfa" : "#7B2FF7"}
+          color={isLight ? "#7B2FF7" : "#7B2FF7"}
           transparent
-          opacity={isLight ? 0.2 : 0.3}
+          opacity={isLight ? 0.25 : 0.3}
         />
       </mesh>
       <mesh
@@ -266,9 +266,9 @@ const NebulaCore = ({ isLight }: { isLight: boolean }) => {
       >
         <torusGeometry args={[2.2, 0.01, 16, 100]} />
         <meshBasicMaterial
-          color={isLight ? "#c4b5fd" : "#a855f7"}
+          color={isLight ? "#9333ea" : "#a855f7"}
           transparent
-          opacity={isLight ? 0.1 : 0.15}
+          opacity={isLight ? 0.15 : 0.15}
         />
       </mesh>
     </Float>
