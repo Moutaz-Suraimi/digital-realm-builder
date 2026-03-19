@@ -86,9 +86,9 @@ const GalaxyStars = ({ isLight }: { isLight: boolean }) => {
       </bufferGeometry>
       <pointsMaterial
         size={0.06}
-        color={isLight ? "#8b5cf6" : "#c4a0ff"}
+        color={isLight ? "#7B2FF7" : "#c4a0ff"}
         transparent
-        opacity={isLight ? 0.5 : 0.8}
+        opacity={isLight ? 0.6 : 0.8}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
         depthWrite={false}
