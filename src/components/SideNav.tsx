@@ -29,6 +29,7 @@ const pageItems = [
 
 const SideNav = () => {
   const { t, lang, setLang, langLabels, langOrder } = useLanguage();
+  const navigate = useNavigate();
   const [hovered, setHovered] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("#home");
@@ -38,6 +39,11 @@ const SideNav = () => {
     setActive(href);
     setMobileOpen(false);
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handlePageNav = (route: string) => {
+    setMobileOpen(false);
+    navigate(route);
   };
 
   const isRtl = lang === "ar";
