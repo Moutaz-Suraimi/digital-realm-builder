@@ -103,7 +103,7 @@ const SideNav = () => {
         className="fixed top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-2 p-2 glass-strong rounded-2xl neon-border"
         style={{ [isRtl ? "right" : "left"]: "1rem" }}
       >
-        {navItems.map((item) => (
+        {sectionItems.map((item) => (
           <div
             key={item.key}
             className="relative"
@@ -134,6 +134,34 @@ const SideNav = () => {
             </button>
           </div>
         ))}
+        <div className="border-t border-primary/20 my-1" />
+        {pageItems.map((item) => (
+          <div
+            key={item.key}
+            className="relative"
+            onMouseEnter={() => setHovered(item.key)}
+            onMouseLeave={() => setHovered(null)}
+          >
+            <button
+              onClick={() => handlePageNav(item.route)}
+              className="p-3 rounded-xl transition-all duration-300 flex items-center gap-3 text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+            >
+              <item.icon className="w-5 h-5 shrink-0" />
+              <AnimatePresence>
+                {hovered === item.key && (
+                  <motion.span
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: "auto" }}
+                    exit={{ opacity: 0, width: 0 }}
+                    className="text-sm font-medium whitespace-nowrap overflow-hidden"
+                  >
+                    {t(item.key)}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+          </div>
+        ))}
       </nav>
 
       {/* Mobile menu */}
@@ -145,7 +173,7 @@ const SideNav = () => {
             exit={{ opacity: 0, x: isRtl ? 100 : -100 }}
             className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center gap-4 md:hidden"
           >
-            {navItems.map((item) => (
+            {sectionItems.map((item) => (
               <button
                 key={item.key}
                 onClick={() => handleClick(item.href)}
