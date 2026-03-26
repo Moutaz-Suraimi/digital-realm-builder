@@ -9,7 +9,7 @@ import {
 import ThemeToggle from "./ThemeToggle";
 import { useNavigate } from "react-router-dom";
 
-const navItems = [
+const sectionItems = [
   { key: "nav.home", icon: Home, href: "#home" },
   { key: "nav.about", icon: Users, href: "#about" },
   { key: "nav.mirror", icon: Layers, href: "#mirror" },
@@ -20,6 +20,11 @@ const navItems = [
   { key: "nav.faq", icon: HelpCircle, href: "#faq" },
   { key: "nav.blog", icon: BookOpen, href: "#blog" },
   { key: "nav.contact", icon: MessageSquare, href: "#contact" },
+];
+
+const pageItems = [
+  { key: "nav.dashboard", icon: LayoutDashboard, route: "/dashboard" },
+  { key: "nav.admin", icon: Shield, route: "/admin" },
 ];
 
 const SideNav = () => {
