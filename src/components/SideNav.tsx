@@ -187,6 +187,17 @@ const SideNav = () => {
                 {t(item.key)}
               </button>
             ))}
+            <div className="border-t border-primary/20 w-32 my-1" />
+            {pageItems.map((item) => (
+              <button
+                key={item.key}
+                onClick={() => handlePageNav(item.route)}
+                className="flex items-center gap-3 px-6 py-3 rounded-xl text-lg transition-all text-muted-foreground hover:text-foreground"
+              >
+                <item.icon className="w-5 h-5" />
+                {t(item.key)}
+              </button>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>
