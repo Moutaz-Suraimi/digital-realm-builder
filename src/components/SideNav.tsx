@@ -3,9 +3,11 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Home, Users, Layers, Package, Lightbulb,
-  HelpCircle, MessageSquare, Menu, X, Globe, Briefcase, Star, BookOpen
+  HelpCircle, MessageSquare, Menu, X, Globe, Briefcase, Star, BookOpen,
+  LayoutDashboard, Shield
 } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import { useNavigate } from "react-router-dom";
 
 const navItems = [
   { key: "nav.home", icon: Home, href: "#home" },
