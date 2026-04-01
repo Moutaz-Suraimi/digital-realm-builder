@@ -18,8 +18,8 @@ const translations: Translations = {
   "nav.faq": { ar: "الأسئلة", en: "FAQ", zh: "常见问题" },
   "nav.contact": { ar: "تواصل معنا", en: "Contact", zh: "联系我们" },
   "nav.blog": { ar: "المدونة", en: "Blog", zh: "博客" },
-  "nav.dashboard": { ar: "لوحة التحكم", en: "Dashboard", zh: "仪表板" },
-  "nav.admin": { ar: "لوحة الإدارة", en: "Admin", zh: "管理面板" },
+  "wa.order": { ar: "اطلب عبر واتساب", en: "Order via WhatsApp", zh: "通过WhatsApp下单" },
+  "wa.continue": { ar: "المتابعة عبر واتساب", en: "Continue to WhatsApp", zh: "继续到WhatsApp" },
 
   // Hero
   "hero.headline": {

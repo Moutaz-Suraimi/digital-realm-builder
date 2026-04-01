@@ -544,11 +544,35 @@ const ContactSection = () => {
                 {t("contact.success.message")}
               </motion.p>
 
+              {/* Continue to WhatsApp Button */}
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.65 }}
+                whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(37, 211, 102, 0.4)" }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  const serviceLabels = services.map(k => t(`contact.service.${k}`)).join(", ");
+                  const budgetLabel = t(`contact.budget.${budget}`);
+                  const parts = [
+                    `${t("contact.wa.hello")} ${name} ${t("contact.wa.from")} ${country}.`,
+                    `${t("contact.wa.interested")} ${serviceLabels}.`,
+                    `${t("contact.wa.budget")} ${budgetLabel}.`,
+                    t("contact.wa.start"),
+                  ].filter(Boolean);
+                  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(parts.join("\n"))}`, "_blank");
+                }}
+                className="mt-6 inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-600 transition-all shadow-lg"
+              >
+                <Send className="w-5 h-5" />
+                {t("wa.continue")}
+              </motion.button>
+
               {/* Summary chips */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
+                transition={{ delay: 0.8 }}
                 className="mt-6 flex flex-wrap justify-center gap-2"
               >
                 <span className="px-3 py-1 rounded-full text-xs bg-primary/15 text-primary border border-primary/20">👤 {name}</span>

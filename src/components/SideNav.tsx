@@ -4,10 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Home, Users, Layers, Package, Lightbulb,
   HelpCircle, MessageSquare, Menu, X, Globe, Briefcase, Star, BookOpen,
-  LayoutDashboard, Shield
 } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
-import { useNavigate } from "react-router-dom";
 
 const sectionItems = [
   { key: "nav.home", icon: Home, href: "#home" },
@@ -22,14 +20,8 @@ const sectionItems = [
   { key: "nav.contact", icon: MessageSquare, href: "#contact" },
 ];
 
-const pageItems = [
-  { key: "nav.dashboard", icon: LayoutDashboard, route: "/dashboard" },
-  { key: "nav.admin", icon: Shield, route: "/admin" },
-];
-
 const SideNav = () => {
   const { t, lang, setLang, langLabels, langOrder } = useLanguage();
-  const navigate = useNavigate();
   const [hovered, setHovered] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("#home");
@@ -39,11 +31,6 @@ const SideNav = () => {
     setActive(href);
     setMobileOpen(false);
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handlePageNav = (route: string) => {
-    setMobileOpen(false);
-    navigate(route);
   };
 
   const isRtl = lang === "ar";
@@ -134,34 +121,6 @@ const SideNav = () => {
             </button>
           </div>
         ))}
-        <div className="border-t border-primary/20 my-1" />
-        {pageItems.map((item) => (
-          <div
-            key={item.key}
-            className="relative"
-            onMouseEnter={() => setHovered(item.key)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            <button
-              onClick={() => handlePageNav(item.route)}
-              className="p-3 rounded-xl transition-all duration-300 flex items-center gap-3 text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-            >
-              <item.icon className="w-5 h-5 shrink-0" />
-              <AnimatePresence>
-                {hovered === item.key && (
-                  <motion.span
-                    initial={{ opacity: 0, width: 0 }}
-                    animate={{ opacity: 1, width: "auto" }}
-                    exit={{ opacity: 0, width: 0 }}
-                    className="text-sm font-medium whitespace-nowrap overflow-hidden"
-                  >
-                    {t(item.key)}
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </button>
-          </div>
-        ))}
       </nav>
 
       {/* Mobile menu */}
@@ -182,17 +141,6 @@ const SideNav = () => {
                     ? "text-primary neon-glow bg-primary/10"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
-              >
-                <item.icon className="w-5 h-5" />
-                {t(item.key)}
-              </button>
-            ))}
-            <div className="border-t border-primary/20 w-32 my-1" />
-            {pageItems.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => handlePageNav(item.route)}
-                className="flex items-center gap-3 px-6 py-3 rounded-xl text-lg transition-all text-muted-foreground hover:text-foreground"
               >
                 <item.icon className="w-5 h-5" />
                 {t(item.key)}
