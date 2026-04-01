@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
-import { Search, Filter, ArrowUpDown, Check, Clock, Trash2 } from "lucide-react";
+import { Search, ArrowUpDown, Check, Clock, Trash2, MessageCircle, CheckCircle } from "lucide-react";
+
+const WHATSAPP_NUMBER = "967780930635";
 
 interface Order {
   id: string;
@@ -12,6 +14,7 @@ interface Order {
   total: number;
   notes: string;
   created_at: string;
+  contacted: boolean;
   services?: { name: string; category: string } | null;
   profiles?: { display_name: string | null } | null;
 }
@@ -21,6 +24,7 @@ const OrdersPanel = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [contactFilter, setContactFilter] = useState<"all" | "contacted" | "not_contacted">("all");
   const [sortBy, setSortBy] = useState<"date" | "total">("date");
   const { toast } = useToast();
 
@@ -33,7 +37,6 @@ const OrdersPanel = () => {
       .select("*, services(name, category)")
       .order("created_at", { ascending: false });
     if (!error && data) {
-      // Fetch user profiles for each order
       const userIds = [...new Set(data.map(o => o.user_id))];
       const { data: profiles } = await supabase
         .from("profiles")
@@ -43,6 +46,7 @@ const OrdersPanel = () => {
       
       setOrders(data.map((o: any) => ({
         ...o,
+        contacted: o.status === "completed",
         services: Array.isArray(o.services) ? o.services[0] : o.services,
         profiles: profileMap.get(o.user_id) || null,
       })));
@@ -62,8 +66,22 @@ const OrdersPanel = () => {
     else { toast({ title: "Order deleted" }); fetchOrders(); }
   };
 
+  const replyViaWhatsApp = (order: Order) => {
+    const customerName = order.profiles?.display_name || "Customer";
+    const serviceName = order.services?.name || "your request";
+    const msg = `Hello ${customerName}, we received your request regarding ${serviceName}.\nWe will assist you shortly.`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+    // Mark as contacted
+    updateStatus(order.id, "completed");
+  };
+
   const filtered = orders
     .filter(o => statusFilter === "all" || o.status === statusFilter)
+    .filter(o => {
+      if (contactFilter === "contacted") return o.contacted;
+      if (contactFilter === "not_contacted") return !o.contacted;
+      return true;
+    })
     .filter(o =>
       !search ||
       (o.profiles?.display_name || "").toLowerCase().includes(search.toLowerCase()) ||
@@ -98,6 +116,21 @@ const OrdersPanel = () => {
               }`}
             >
               {s.charAt(0).toUpperCase() + s.slice(1)}
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center gap-2">
+          {(["all", "contacted", "not_contacted"] as const).map(f => (
+            <button
+              key={f}
+              onClick={() => setContactFilter(f)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                contactFilter === f
+                  ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
+                  : "text-muted-foreground hover:text-foreground border border-border/30 hover:border-border/50"
+              }`}
+            >
+              {f === "all" ? "All" : f === "contacted" ? "✓ Contacted" : "⚠ Not Contacted"}
             </button>
           ))}
         </div>
@@ -136,9 +169,14 @@ const OrdersPanel = () => {
                     key={order.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="hover:bg-primary/5 transition-colors"
+                    className={`hover:bg-primary/5 transition-colors ${!order.contacted ? "bg-amber-500/5" : ""}`}
                   >
-                    <td className="px-4 py-3 text-foreground">{order.profiles?.display_name || "Unknown"}</td>
+                    <td className="px-4 py-3 text-foreground">
+                      <div className="flex items-center gap-2">
+                        {!order.contacted && <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />}
+                        {order.profiles?.display_name || "Unknown"}
+                      </div>
+                    </td>
                     <td className="px-4 py-3 text-muted-foreground">{order.services?.name || "—"}</td>
                     <td className="px-4 py-3 text-foreground font-medium">${Number(order.total).toFixed(2)}</td>
                     <td className="px-4 py-3">
@@ -156,13 +194,21 @@ const OrdersPanel = () => {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1">
+                        {/* WhatsApp Reply Button */}
+                        <button
+                          onClick={() => replyViaWhatsApp(order)}
+                          className="p-1.5 rounded-lg text-emerald-400 hover:bg-emerald-500/10 transition-colors group relative"
+                          title="Reply via WhatsApp"
+                        >
+                          <MessageCircle className="w-4 h-4" />
+                        </button>
                         {order.status === "pending" && (
                           <button
                             onClick={() => updateStatus(order.id, "completed")}
                             className="p-1.5 rounded-lg text-emerald-400 hover:bg-emerald-500/10 transition-colors"
                             title="Complete"
                           >
-                            <Check className="w-4 h-4" />
+                            <CheckCircle className="w-4 h-4" />
                           </button>
                         )}
                         <button

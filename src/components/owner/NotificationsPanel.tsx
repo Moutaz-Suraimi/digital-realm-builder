@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
-import { Bell, Check, CheckCheck, Info, ShoppingCart, FileText } from "lucide-react";
+import { Bell, Check, CheckCheck, Info, ShoppingCart, FileText, MessageCircle } from "lucide-react";
+
+const WHATSAPP_NUMBER = "967780930635";
 
 interface Notification {
   id: string;
@@ -9,6 +11,7 @@ interface Notification {
   message: string;
   is_read: boolean;
   created_at: string;
+  user_id: string | null;
 }
 
 const NotificationsPanel = () => {
@@ -41,6 +44,12 @@ const NotificationsPanel = () => {
   const markAllRead = async () => {
     await supabase.from("notifications").update({ is_read: true }).eq("is_read", false);
     fetchNotifications();
+  };
+
+  const replyViaWhatsApp = (notification: Notification) => {
+    const msg = `Hello, regarding your message: "${notification.message.substring(0, 100)}"\nWe will assist you shortly.`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+    markRead(notification.id);
   };
 
   const typeIcon = (type: string) => {
@@ -93,11 +102,21 @@ const NotificationsPanel = () => {
                 {new Date(n.created_at).toLocaleString()}
               </p>
             </div>
-            {!n.is_read && (
-              <button onClick={() => markRead(n.id)} className="p-1.5 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors flex-shrink-0">
-                <Check className="w-4 h-4" />
+            <div className="flex items-center gap-1 flex-shrink-0">
+              {/* WhatsApp Reply */}
+              <button
+                onClick={() => replyViaWhatsApp(n)}
+                className="p-1.5 rounded-lg text-emerald-400 hover:bg-emerald-500/10 transition-colors"
+                title="Reply via WhatsApp"
+              >
+                <MessageCircle className="w-4 h-4" />
               </button>
-            )}
+              {!n.is_read && (
+                <button onClick={() => markRead(n.id)} className="p-1.5 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors">
+                  <Check className="w-4 h-4" />
+                </button>
+              )}
+            </div>
           </motion.div>
         ))}
       </div>
