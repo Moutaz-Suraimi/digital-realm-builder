@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Send, User, Globe, Briefcase, DollarSign, Shield,
-  Paperclip, CheckCircle2, ArrowRight, ArrowLeft, X, Check,
+  CheckCircle2, ArrowRight, ArrowLeft, X, Check,
   ChevronDown, ChevronUp
 } from "lucide-react";
 
@@ -97,10 +97,8 @@ const ContactSection = () => {
   const [services, setServices] = useState<string[]>([]);
   const [budget, setBudget] = useState("");
   const [privacy, setPrivacy] = useState(false);
-  const [fileName, setFileName] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const fileRef = useRef<HTMLInputElement>(null);
 
   // Auto-detect country
   useEffect(() => {
@@ -146,7 +144,6 @@ const ContactSection = () => {
       `${t("contact.wa.hello")} ${name} ${t("contact.wa.from")} ${country}.`,
       `${t("contact.wa.interested")} ${serviceLabels}.`,
       `${t("contact.wa.budget")} ${budgetLabel}.`,
-      fileName ? `${t("contact.wa.file")} ${fileName}.` : "",
       t("contact.wa.start"),
     ].filter(Boolean);
 
@@ -244,35 +241,6 @@ const ContactSection = () => {
       case "privacy":
         return (
           <div className="space-y-5">
-            {/* File upload */}
-            <div
-              onClick={() => fileRef.current?.click()}
-              className="group flex items-center gap-3 px-4 py-4 rounded-xl border-2 border-dashed border-border/50 hover:border-primary/50 bg-secondary/20 cursor-pointer transition-all hover:bg-primary/5"
-            >
-              <Paperclip className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-foreground">{t("contact.file")}</p>
-                <p className="text-xs text-muted-foreground truncate">
-                  {fileName || t("contact.file.hint")}
-                </p>
-              </div>
-              {fileName && (
-                <button
-                  onClick={e => { e.stopPropagation(); setFileName(""); }}
-                  className="w-6 h-6 rounded-full bg-destructive/20 flex items-center justify-center hover:bg-destructive/40 transition-colors"
-                >
-                  <X className="w-3 h-3 text-destructive" />
-                </button>
-              )}
-            </div>
-            <input
-              ref={fileRef}
-              type="file"
-              accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx"
-              className="hidden"
-              onChange={e => setFileName(e.target.files?.[0]?.name || "")}
-            />
-
             {/* Privacy checkbox */}
             <motion.button
               whileHover={{ scale: 1.01 }}
