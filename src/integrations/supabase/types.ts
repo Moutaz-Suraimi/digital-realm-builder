@@ -193,6 +193,39 @@ export type Database = {
         }
         Relationships: []
       }
+      site_content: {
+        Row: {
+          content_key: string
+          content_type: string
+          created_at: string
+          id: string
+          metadata: Json | null
+          section_key: string
+          updated_at: string
+          value: string | null
+        }
+        Insert: {
+          content_key: string
+          content_type?: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          section_key: string
+          updated_at?: string
+          value?: string | null
+        }
+        Update: {
+          content_key?: string
+          content_type?: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          section_key?: string
+          updated_at?: string
+          value?: string | null
+        }
+        Relationships: []
+      }
       submissions: {
         Row: {
           created_at: string
@@ -268,6 +301,39 @@ export type Database = {
           page?: string | null
           session_id?: string | null
           visited_at?: string
+        }
+        Relationships: []
+      }
+      website_sections: {
+        Row: {
+          created_at: string
+          custom_config: Json | null
+          display_name: string
+          display_order: number
+          id: string
+          is_visible: boolean
+          section_key: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          custom_config?: Json | null
+          display_name: string
+          display_order?: number
+          id?: string
+          is_visible?: boolean
+          section_key: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          custom_config?: Json | null
+          display_name?: string
+          display_order?: number
+          id?: string
+          is_visible?: boolean
+          section_key?: string
+          updated_at?: string
         }
         Relationships: []
       }
