@@ -11,10 +11,14 @@ import UsersPanel from "@/components/owner/UsersPanel";
 import AnalyticsPanel from "@/components/owner/AnalyticsPanel";
 import NotificationsPanel from "@/components/owner/NotificationsPanel";
 import SettingsPanel from "@/components/owner/SettingsPanel";
+import PageBuilderPanel from "@/components/owner/PageBuilderPanel";
+import MediaLibraryPanel from "@/components/owner/MediaLibraryPanel";
 import { motion, AnimatePresence } from "framer-motion";
 
 const panels: Record<string, React.FC<any>> = {
   overview: OverviewPanel,
+  "page-builder": PageBuilderPanel,
+  media: MediaLibraryPanel,
   orders: OrdersPanel,
   services: ServicesPanel,
   blog: BlogPanel,
@@ -26,6 +30,8 @@ const panels: Record<string, React.FC<any>> = {
 
 const tabTitles: Record<string, string> = {
   overview: "Dashboard Overview",
+  "page-builder": "Page Builder",
+  media: "Media Library",
   orders: "Orders Management",
   services: "Services Management",
   blog: "Blog / News",
@@ -33,6 +39,19 @@ const tabTitles: Record<string, string> = {
   analytics: "Analytics",
   notifications: "Notifications",
   settings: "Settings",
+};
+
+const tabDescriptions: Record<string, string> = {
+  overview: "Monitor your site's performance at a glance",
+  "page-builder": "Drag, reorder, and customize website sections",
+  media: "Upload and manage images, videos, and documents",
+  orders: "Track and manage customer orders",
+  services: "Add, edit, and organize your service offerings",
+  blog: "Create and publish articles and news",
+  users: "Manage user accounts and roles",
+  analytics: "Deep dive into visitor and revenue analytics",
+  notifications: "View alerts and system notifications",
+  settings: "Configure your dashboard preferences",
 };
 
 const OwnerDashboard = () => {
@@ -59,7 +78,12 @@ const OwnerDashboard = () => {
       <OwnerSidebar activeTab={activeTab} onTabChange={setActiveTab} />
       <main className="flex-1 min-w-0 overflow-y-auto">
         <header className="sticky top-0 z-40 border-b border-border/20 bg-background/80 backdrop-blur-xl px-6 py-4">
-          <h1 className="text-lg font-semibold text-foreground">{tabTitles[activeTab]}</h1>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-lg font-semibold text-foreground">{tabTitles[activeTab]}</h1>
+              <p className="text-xs text-muted-foreground mt-0.5">{tabDescriptions[activeTab]}</p>
+            </div>
+          </div>
         </header>
         <div className="p-6">
           <AnimatePresence mode="wait">
