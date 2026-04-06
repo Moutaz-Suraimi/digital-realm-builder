@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { MessageCircle } from "lucide-react";
 import SideNav from "@/components/SideNav";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -18,6 +19,7 @@ import ScrollProgressBar from "@/components/ScrollProgressBar";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const INTRO_KEY = "surimi_intro_seen";
+const WHATSAPP_NUMBER = "967780930635";
 
 // Cinematic section wrapper with fade + slide-up on scroll entry
 const SectionReveal = ({ children, id }: { children: React.ReactNode; id?: string }) => (
@@ -66,6 +68,22 @@ const Index = () => {
         <FooterSection />
       </main>
       <ChatbotWidget />
+
+      {/* Floating WhatsApp Button */}
+      <motion.a
+        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hello, I'm interested in your services.")}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 2, type: "spring", bounce: 0.4 }}
+        whileHover={{ scale: 1.15 }}
+        whileTap={{ scale: 0.9 }}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/30 hover:bg-emerald-600 hover:shadow-emerald-500/50 transition-all"
+        style={{ animation: "pulse 2s infinite" }}
+      >
+        <MessageCircle className="w-6 h-6" />
+      </motion.a>
     </div>
   );
 };
